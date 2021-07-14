@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
@@ -18,52 +19,17 @@ public class Principal {
             }
         }
 
-        int[] armariosAbertos = new int[10];
-        /*
-                 armariosAbertos --------> |||  $0FC6A6  |||
-                                                    {1}        {4}
-         */
+        ArrayList<Integer> armariosAbertos = new ArrayList<>();
 
-
-        int contAbertos = 0;
         for (int armario = 1; armario <= n; armario++) {
             if (armarios[armario]) {
-
-                if (contAbertos >= armariosAbertos.length) {  // OVERFLOW!!!!
-
-                    // cria um novo array
-                    int[] novoArray = new int[armariosAbertos.length * 2];
-
-                    /*
-                         novoArray   --------> |||  $43210B  |||
-                                                        {1}      {4}    { }     { }
-                    */
-                    // copia o array corrente inteiro para o novo array
-                    for (int i = 0; i < armariosAbertos.length; i++) {
-                        novoArray[i] = armariosAbertos[i];
-                    }
-
-                    armariosAbertos = novoArray;
-
-                    /*
-
-                       SEM REFERÊNCIAS --------> |||  $0FC6A6  |||
-                                                        {1}        {4}
-
-                       armariosAbertos --------> |||  $43210B  |||
-                       novoArray   -------->     |||  $43210B  |||
-                                                        {1}        {4}    { }     { }
-                    */
-                }
-
-                armariosAbertos[contAbertos] = armario;
-                contAbertos++;
+                armariosAbertos.add(armario);
             }
         }
 
-        int[] resultado = new int[contAbertos];
-        for (int i = 0; i < contAbertos; i++) {
-            resultado[i] = armariosAbertos[i];
+        int[] resultado = new int[armariosAbertos.size()];
+        for (int i = 0; i < armariosAbertos.size(); i++) {
+            resultado[i] = armariosAbertos.get(i);
         }
 
         return resultado;
