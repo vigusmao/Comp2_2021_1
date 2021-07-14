@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Principal {
 
-    public static int[] obterArmariosAbertosViaSimulacao(int n) {
+    public static ArrayList<Integer> obterArmariosAbertosViaSimulacao(int n) {
         /* false: armário fechado;
            true: armário aberto */
         boolean[] armarios ;  // é null neste momento
@@ -27,27 +27,11 @@ public class Principal {
             }
         }
 
-        int[] resultado = new int[armariosAbertos.size()];
-        for (int i = 0; i < armariosAbertos.size(); i++) {
-            resultado[i] = armariosAbertos.get(i);
-        }
-
-        return resultado;
+        return armariosAbertos;
     }
 
     public static int obterArmariosAbertos(int n) {
         return (int) Math.sqrt(n);
-    }
-
-    public static String imprimirArray(int[] array) {
-        String resultado = "";
-        for (int i = 0; i < array.length; i++) {
-            resultado += array[i];
-            if (i < array.length - 1) {
-                resultado += ", ";
-            }
-        }
-        return resultado;
     }
 
     public static void main(String[] args) {
@@ -60,11 +44,11 @@ public class Principal {
             }
 
             long inicio = System.currentTimeMillis();
-            int[] armariosAbertos = obterArmariosAbertosViaSimulacao(contArmarios);
+            ArrayList<Integer> armariosAbertos = obterArmariosAbertosViaSimulacao(contArmarios);
 
             long duracao = System.currentTimeMillis() - inicio;
 
-            System.out.println("Armários abertos: " + imprimirArray(armariosAbertos));
+            System.out.println("Armários abertos: " + armariosAbertos);
             System.out.printf("Duração: %.3f segundos\n", duracao / 1000f);
         }
     }
