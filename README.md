@@ -2,5 +2,5 @@
 
 Repositório do curso de Computação II (POO/Java) do Departamento de Ciência da Computação da UFRJ em 2021/1.
 
-Professor: Vinícius Gusmão
+Prof: Vinícius Gusmão
 
