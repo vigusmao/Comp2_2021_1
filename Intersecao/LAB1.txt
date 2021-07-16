@@ -1,0 +1,13 @@
+1) Crie uma função (método public static em uma classe Principal)
+   int obterTamanhoIntersecao(ArrayList<Integer> lista1, ArrayList<Integer> lista2)
+   que retorna a quantidade de elementos presentes em ambas as listas.
+
+2) Crie um main() onde você perguntará ao usuário qual o tamanho das listas
+   e a seguir criará duas listas com o mesmo tamanho (o tamanho dado pelo usuário),
+   cada qual contendo inteiros aleatórios sorteados no intervalo [1, 10n].
+
+3) Para terminar, o main() chamará a função obterTamanhoIntersecao,
+   printando na saída padrão esse tamanho.
+
+
+
