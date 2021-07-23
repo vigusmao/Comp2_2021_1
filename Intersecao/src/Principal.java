@@ -55,6 +55,5 @@ public class Principal {
 
         System.out.printf("\nAs listas possuem %d elemento(s) em comum.",
                 obterTamanhoIntersecao(lista1, lista2));
-
     }
 }
