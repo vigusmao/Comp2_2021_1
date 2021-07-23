@@ -1,26 +1,27 @@
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+
 
 public class ContaCorrente {
 
-    private int numero;
+    private final int numero;
 
     private long cpfDoCorrentista;
 
-    private float saldoEmReais;
-    //          |||   710     |||
+    private float saldoEmReais = 0;
 
     private ArrayList<String> transacoes;
-            //               |||    $3265326     |||
-            //                    {"Recibo depósito..."}    {"Saque de ..."}
+
+    public static final float SALDO_INICIAL_DA_CONTA = 10;  // "constante"
+
+    private static int quantidadeDeTransacoesDeTodasAsContas = 0;
 
 
     // CONSTRUTOR: método especial que roda quando chamamos o "new" para instanciar
     public ContaCorrente(int numeroDaConta, long cpfDoCorrentista) {
         this.numero = numeroDaConta;
         this.cpfDoCorrentista = cpfDoCorrentista;
-        this.saldoEmReais = 10;  // saldo inicial doado pelo banco
+        this.saldoEmReais = SALDO_INICIAL_DA_CONTA;  // saldo inicial doado pelo banco
         this.transacoes = new ArrayList<>();
         this.transacoes.add("Conta criada com saldo de " + this.saldoEmReais);
     }
@@ -37,20 +38,23 @@ public class ContaCorrente {
 
         this.saldoEmReais += valor;
 
-////        Date agora = new Date();  // now
-//        long agora = System.currentTimeMillis();
+        Date agora = new Date();  // now
 
-        String registroTransacao = "Recebido depósito em dinheiro: " +
-                valor;
+        String registroTransacao = agora + ": recebido depósito em dinheiro: " + valor;
 
         this.transacoes.add(registroTransacao);
+        quantidadeDeTransacoesDeTodasAsContas++;
     }
 
     public String getExtrato() {
         String resultado = "";
-        for (int i = 0; i < this.transacoes.size(); i++) {
-            resultado += this.transacoes.get(i) + "\n";
+        for (int i = 0; i < transacoes.size(); i++) {
+            resultado += transacoes.get(i) + "\n";
         }
         return resultado;
+    }
+
+    public static int getQuantidadeDeTransacoesDeTodasAsContas() {
+        return quantidadeDeTransacoesDeTodasAsContas;
     }
 }

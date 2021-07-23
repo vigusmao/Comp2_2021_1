@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Principal {
 
 
@@ -19,31 +17,14 @@ public class Principal {
         conta1.receberDepositoEmDinheiro(200);
         System.out.println(conta1.getSaldoEmReais());
 
-        conta1.receberDepositoEmDinheiro(-500);
-        System.out.println(conta1.getSaldoEmReais());
+        conta2.receberDepositoEmDinheiro(35.80f);
 
-        float saldo;
-        //  |||  0  |||      o valor default
-
-        saldo = conta1.getSaldoEmReais();
-//  |||  710  |||
-
-        saldo = 1000000;
-//  |||  1000000  |||
+        System.out.println(conta1.getExtrato());
+        System.out.println("\n\n");
+        System.out.println(conta2.getExtrato());
 
 
-
-//        ArrayList<String> transacoesDaConta;
-//        //               |||      null     |||
-//
-//        transacoesDaConta = conta1.getTransacoes();
-////          |||    $3265326     |||
-////             {"Recibo depósito..."}    {"Saque de ..."}    {R$1.000.000}
-//             transacoesDaConta.add("Depótideo de R$1.000.000,00");
-
-        String extrato = conta1.getExtrato();
-
-        System.out.println(extrato);
-
+        System.out.println(ContaCorrente.SALDO_INICIAL_DA_CONTA);
+        System.out.println(ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas());
     }
 }
