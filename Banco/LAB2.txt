@@ -1,0 +1,21 @@
+1) Crie um unit test para o método getQuantidadeDeTransacoesDeTodasAsContas().
+   Dica: crie mais de uma ContaCorrente no seu teste
+   e depois faça um assert chamando o método
+         ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas()
+   diretamente via nome da classe, como acima, uma vez que o método
+   é static.
+
+2) Crie um construtor para a classe Correntista, que receba cpf e nome.
+
+3) Crie um getter e um setter para o nome do correntista
+       public String getNome()
+       public void setNome(String nome)
+
+4) Faça com que o atributo cpf seja "final"
+
+5) Crie um teste para o método getCpfDoCorrentista()
+
+6) Fazer com que maria e contaDaMaria sejam atributos da classe de teste,
+   e inicializá-las no setUp
+
+7) Preencha as duas Strings com as regras de negócio no teste da transferência.
