@@ -1,8 +1,12 @@
+import java.util.Objects;
+
 public class Fracao {
 
     private int numerador;
     private int denominador;
     private boolean sinal;
+
+    private Fracao minhaFracaoIrredutivel;
 
     /**
      * Cria uma fração. O sinal da fração será inferido a partir dos sinais
@@ -41,6 +45,7 @@ public class Fracao {
         this.numerador = numerador;
         this.denominador = denominador;
         this.sinal = sinal;
+        this.minhaFracaoIrredutivel = null;
     }
 
     /**
@@ -83,7 +88,20 @@ public class Fracao {
      *         ou esta própria fração (this), caso ela própria já seja irredutível
      */
     public Fracao getFracaoIrredutivel() {
-        return null;  // ToDo IMPLEMENT ME!!!!
+        if (this.minhaFracaoIrredutivel == null) {  // lazy instantiation
+            int mdc = AritmeticaBasica.calcularMaximoDivisorComum(
+                    this.numerador, this.denominador);
+
+            if (mdc == 1) {
+                this.minhaFracaoIrredutivel = this;
+
+            } else {
+                this.minhaFracaoIrredutivel = new Fracao(
+                        this.numerador / mdc, this.denominador / mdc, this.sinal);
+            }
+        }
+
+        return this.minhaFracaoIrredutivel;
     }
 
     /**
@@ -117,5 +135,22 @@ public class Fracao {
         // ToDo IMPLEMENT ME!!!!
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fracao fracao = (Fracao) o;
 
+        Fracao minhaFracaoIrredutivel = getFracaoIrredutivel();
+        Fracao outraFracaoIrredutivel = fracao.getFracaoIrredutivel();
+
+        return minhaFracaoIrredutivel.numerador == outraFracaoIrredutivel.numerador &&
+                minhaFracaoIrredutivel.denominador == outraFracaoIrredutivel.denominador &&
+                this.sinal == fracao.sinal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerador, denominador, sinal);
+    }
 }
