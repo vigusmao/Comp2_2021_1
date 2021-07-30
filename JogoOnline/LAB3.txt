@@ -8,7 +8,8 @@ A classe principal pode se chamar JogoOnline.
 
 2) A classe Jogador terá como atributos, entre outros que você queira,
    username (identificador único do usuário), senha, pontuação (score acumulado),
-   e histórico de partidas jogadas. Um jogador ao ser criado começa com 1000 pontos.
+   e histórico de partidas jogadas (dica: ArrayList<Partida>). Um jogador ao ser
+   criado começa com 1000 pontos.
    (Dica: no construtor da classe Jogador você vai querer exatamente
    que sejam informados o username e a senha.)
 
@@ -22,8 +23,9 @@ A classe principal pode se chamar JogoOnline.
    Vamos querer também um método de logout, que faz o óbvio.
 
 6) A classe JogoOnline terá um método para iniciarPartida entre dois jogadores
-   especificados. Se um dos jogadores já estiver jogando, esse método
-   não poderá fazer nada.
+   especificados (passados como parâmetro). Se um dos jogadores já estiver jogando
+   ou não estiver online, esse método não fará nada. Esse método deverá criar
+   um novo objeto Partida e retornar esse objeto.
 
 7) Vamos querer uma classe Partida, que tenha como atributos os
    jogadores que dela participaram: atributo jogador1 e atributo jogador2,
@@ -35,7 +37,8 @@ A classe principal pode se chamar JogoOnline.
 
 9) A classe JogoOnline deve ter um método escolherAdversario(Jogador solicitante)
    que retornará qualquer jogador que esteja online, que não esteja jogando,
-   e que não seja o próprio jogador solicitante.
+   e que não seja o próprio jogador solicitante. Esse método retorno o objeto
+   Jogodar que foi escolhido para ser o adversário do Jogador solicitante.
 
 10) A classe JogoOnline terá um método para encerrarPartida, que recebe como parâmetro
     um objeto Partida, e um resultado.
