@@ -21,7 +21,7 @@ public class Fracao {
     public Fracao(int numerador, int denominador) {
         this(Math.abs(numerador),
                 Math.abs(denominador),
-                numerador / denominador >= 0);
+                numerador / (float) denominador >= 0);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Fracao {
         }
 
         this.numerador = numerador;
-        this.denominador = denominador;
+        this.denominador = numerador != 0 ? denominador : 1;
         this.sinal = sinal;
         this.minhaFracaoIrredutivel = null;
     }
@@ -133,6 +133,15 @@ public class Fracao {
      */
     public void simplificar() {
         // ToDo IMPLEMENT ME!!!!
+    }
+
+    @Override
+    public String toString() {
+        return (this.sinal ? "" : "-") +
+                this.numerador +
+                (this.denominador != 1
+                        ? "/" + this.denominador
+                        : "");
     }
 
     @Override
