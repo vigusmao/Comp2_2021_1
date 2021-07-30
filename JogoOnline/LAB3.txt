@@ -1,0 +1,49 @@
+Vamos criar um sisteminha para jogos online.
+A classe principal pode se chamar JogoOnline.
+
+1) Na classe JogoOnline, vamos querer um método para cadastrar
+   jogadores (novos). Esse método deverá receber username e senha como
+   parâmetros.
+   (Dica: use um ArrayList<Jogador> para armazenar os jogadores já criados.)
+
+2) A classe Jogador terá como atributos, entre outros que você queira,
+   username (identificador único do usuário), senha, pontuação (score acumulado),
+   e histórico de partidas jogadas. Um jogador ao ser criado começa com 1000 pontos.
+   (Dica: no construtor da classe Jogador você vai querer exatamente
+   que sejam informados o username e a senha.)
+
+3) Um Jogador pode estar online ou offline (também atributo da classe Jogador).
+
+4) Jogadores podem estar jogando ou não (também um atributo booleano em Jogador).
+
+5) Na classe JogoOnline, vamos querer um método para login de um jogador,
+   que recebe o username e a senha e checa se a senha está correta. Se estiver
+   correta, o jogador deverá ficar "online".
+   Vamos querer também um método de logout, que faz o óbvio.
+
+6) A classe JogoOnline terá um método para iniciarPartida entre dois jogadores
+   especificados. Se um dos jogadores já estiver jogando, esse método
+   não poderá fazer nada.
+
+7) Vamos querer uma classe Partida, que tenha como atributos os
+   jogadores que dela participaram: atributo jogador1 e atributo jogador2,
+   informados no construtor.
+
+8) A classe Partida terá um método getResultado(), que deverá retornar
+   1, se o jogador1 foi o vencedor; 2, se o jogador2 foi o vencedor;
+   e 0, se houve empate.
+
+9) A classe JogoOnline deve ter um método escolherAdversario(Jogador solicitante)
+   que retornará qualquer jogador que esteja online, que não esteja jogando,
+   e que não seja o próprio jogador solicitante.
+
+10) A classe JogoOnline terá um método para encerrarPartida, que recebe como parâmetro
+    um objeto Partida, e um resultado.
+    Este método setará, na Partida, o seu resultado (naquele esquema: 1, 2 ou 0).
+    Este método mudará o estado dos jogadores dessa partida
+    de jogando==true para jogando==false. Este método também atualizará os históricos
+    de partidas dos dois jogadores, e atualizará as pontuações acumuladas dos dois
+    jogadores, da seguinte forma: o vencedor ganha 1 ponto, o perdedor perde 1 ponto,
+    e em caso de empate nada acontece com as pontuaçoes.
+
+11) Escreva unit tests que façam sentido.
