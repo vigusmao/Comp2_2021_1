@@ -38,7 +38,7 @@ A classe principal pode se chamar JogoOnline.
 9) A classe JogoOnline deve ter um método escolherAdversario(Jogador solicitante)
    que retornará qualquer jogador que esteja online, que não esteja jogando,
    e que não seja o próprio jogador solicitante. Esse método retorno o objeto
-   Jogodar que foi escolhido para ser o adversário do Jogador solicitante.
+   Jogador que foi escolhido para ser o adversário do Jogador solicitante.
 
 10) A classe JogoOnline terá um método para encerrarPartida, que recebe como parâmetro
     um objeto Partida, e um resultado.
