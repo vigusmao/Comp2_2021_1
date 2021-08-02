@@ -12,6 +12,8 @@ public class ContaCorrente {
 
     private ArrayList<String> transacoes;
 
+    private Gerente gerente;
+
     public static final float SALDO_INICIAL_DA_CONTA = 10;  // "constante"
 
     private static int quantidadeDeTransacoesDeTodasAsContas = 0;

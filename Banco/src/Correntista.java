@@ -1,22 +1,27 @@
-public class Correntista {
+import java.util.ArrayList;
 
-    private final long cpf;
-    private String nome;
+public class Correntista extends PessoaFisica {
 
-    public Correntista(long cpf, String nome) {
-        this.cpf = cpf;
-        this.nome = nome;
+    private float limiteChequeEspecial;
+    private ArrayList<ContaCorrente> contas;
+    private ArrayList<AplicacaoFinanceira> investimentos;
+
+    public float getLimiteChequeEspecial() {
+        if (this.dataNascimento != null) {
+
+        }
+
+        return limiteChequeEspecial;
+
+
+
     }
 
-    public long getCpf() {
-        return cpf;
+    public void setLimiteChequeEspecial(float limiteChequeEspecial) {
+        this.limiteChequeEspecial = limiteChequeEspecial;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public float getTotalInvestido() {
+        return 0;  // ToDo IMPLEMENT ME!!
     }
 }
