@@ -9,4 +9,8 @@ public class AritmeticaBasica {
         }
         return y;
     }
+
+    public static boolean extrairSinal(double numero) {
+        return numero >= 0;
+    }
 }

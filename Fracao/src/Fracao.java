@@ -2,9 +2,9 @@ import java.util.Objects;
 
 public class Fracao {
 
-    private int numerador;
-    private int denominador;
-    private boolean sinal;
+    private int numerador;  // o valor absoluto (não-negativo) do numerador
+    private int denominador;  // o valor absoluto (positivo) do denominador
+    private boolean sinal;  // true, se não-negativa; false, se negativa
 
     private Fracao minhaFracaoIrredutivel;
 
@@ -21,7 +21,7 @@ public class Fracao {
     public Fracao(int numerador, int denominador) {
         this(Math.abs(numerador),
                 Math.abs(denominador),
-                numerador / (float) denominador >= 0);
+                AritmeticaBasica.extrairSinal(numerador / (float) denominador));
     }
 
     /**
@@ -44,8 +44,8 @@ public class Fracao {
 
         this.numerador = numerador;
         this.denominador = numerador != 0 ? denominador : 1;
-        this.sinal = sinal;
-        this.minhaFracaoIrredutivel = null;
+        this.sinal = numerador != 0 ? sinal : true;
+        this.minhaFracaoIrredutivel = null;  // não inicializado! (lazy intantiation vai acontecer no momento oportuno)
     }
 
     /**
@@ -76,8 +76,14 @@ public class Fracao {
     }
 
     public double getValorNumerico() {
-        return (numerador / (double) denominador);
+        double valor = this.numerador / (double) this.denominador;
         // se não fizer o cast o resultado seria um int, porque int / int == int (truncado)
+
+        if (!this.sinal) {  // se for negativa...
+            valor = -valor;
+        }
+
+        return valor;
     }
 
     /**
@@ -88,24 +94,30 @@ public class Fracao {
      *         ou esta própria fração (this), caso ela própria já seja irredutível
      */
     public Fracao getFracaoIrredutivel() {
-        if (this.minhaFracaoIrredutivel == null) {  // lazy instantiation
-            int mdc = AritmeticaBasica.calcularMaximoDivisorComum(
-                    this.numerador, this.denominador);
-
-            if (mdc == 1) {
-                this.minhaFracaoIrredutivel = this;
-
-            } else {
-                this.minhaFracaoIrredutivel = new Fracao(
-                        this.numerador / mdc, this.denominador / mdc, this.sinal);
-            }
-        }
-
+        garantirInicializacaoFracaoIrredutivel();
         return this.minhaFracaoIrredutivel;
     }
 
+    private void garantirInicializacaoFracaoIrredutivel() {
+        if (this.minhaFracaoIrredutivel != null) {
+            return;  // já inicializado, nada a fazer!
+        }
+
+        int mdc = AritmeticaBasica.calcularMaximoDivisorComum(
+                this.numerador, this.denominador);
+
+        if (mdc == 1) {
+            this.minhaFracaoIrredutivel = this;
+
+        } else {
+            this.minhaFracaoIrredutivel = new Fracao(
+                    this.numerador / mdc, this.denominador / mdc, this.sinal);
+        }
+    }
+
     /**
-     * Efetua uma adição
+     * Efetua uma adição.
+     *
      * @param outra o segundo operando da adição (o primeiro é esta própria fração)
      *
      * @return uma TERCEIRA fração, criada agora, com o resultado da operação
@@ -118,21 +130,41 @@ public class Fracao {
         return null;  // ToDo IMPLEMENT ME!!!!
     }
 
-
+    /**
+     * Efetua uma multiplicação.
+     *
+     * @param outra o segundo operando da multiplicação (o primeiro é esta própria fração)
+     *
+     * @return uma TERCEIRA fração, criada agora, com o resultado da operação
+     */
     public Fracao multiplicar(Fracao outra) {
-        return null;  // ToDo IMPLEMENT ME!!!!
+        Fracao produto = new Fracao(
+                this.numerador * outra.getNumerador(),
+                this.denominador * outra.getDenominador(),
+                this.sinal == outra.getSinal());
+        produto.simplificar();
+        return produto;
     }
 
-    public Fracao multiplicar(int outra) {   // sobrecarga (overload) de método: tem o mesmo nome e assinatura diferente
-        return null;  // ToDo IMPLEMENT ME!!!!
+    public Fracao multiplicar(int numero) {   // sobrecarga (overload) de método: tem o mesmo nome e assinatura diferente
+        Fracao produto = new Fracao(
+                this.numerador * numero,
+                this.denominador,
+                this.sinal == AritmeticaBasica.extrairSinal(numero));
+        produto.simplificar();
+        return produto;
     }
+
+
 
     /**
      * Modifica, possivelmente, o numerador e o denominador desta fração,
      * tornando-a irredutível (e equivalente à fração original)
      */
     public void simplificar() {
-        // ToDo IMPLEMENT ME!!!!
+        garantirInicializacaoFracaoIrredutivel();
+        this.numerador = this.minhaFracaoIrredutivel.getNumerador();
+        this.denominador = this.minhaFracaoIrredutivel.getDenominador();
     }
 
     @Override

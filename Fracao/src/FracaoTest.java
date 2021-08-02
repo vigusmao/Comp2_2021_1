@@ -148,6 +148,45 @@ public class FracaoTest {
     }
 
     @Test
+    public void testarMultiplicacao() {
+        verificarMultiplicacaoEspecifica(
+                1, 3,
+                3, 5,
+                1, 5, true);
+
+        verificarMultiplicacaoEspecifica(
+                -1, 3,
+                3, 5,
+                1, 5, false);
+
+        verificarMultiplicacaoEspecifica(
+                -1, 3,
+                0, 5,
+                0, 1, true);
+
+        verificarMultiplicacaoEspecifica(
+                -1, 3,
+                2, -9,
+                2, 27, true);
+    }
+
+    private void verificarMultiplicacaoEspecifica(
+            int numeradorFracao1, int denominadorFracao1,
+            int numeradorFracao2, int denominadorFracao2,
+            int numeradorResultadoEsperado, int denominadorResultadoEsperado, boolean sinalEsperado) {
+
+        Fracao fracao1 = new Fracao(numeradorFracao1, denominadorFracao1);
+        Fracao fracao2 = new Fracao(numeradorFracao2, denominadorFracao2);
+
+        Fracao resultadoEsperado = new Fracao(numeradorResultadoEsperado, denominadorResultadoEsperado);
+        Fracao resultadoObtido = fracao1.multiplicar(fracao2);
+
+        assertEquals(resultadoEsperado.getNumerador(), resultadoObtido.getNumerador());
+        assertEquals(resultadoEsperado.getDenominador(), resultadoObtido.getDenominador());
+        assertEquals(resultadoObtido.getSinal(), sinalEsperado);
+    }
+
+    @Test
     public void testarToString() {
         Fracao fracao;
 
@@ -167,6 +206,9 @@ public class FracaoTest {
         assertEquals("9", fracao.toString());
 
         fracao = new Fracao(0, 7);
+        assertEquals("0", fracao.toString());
+
+        fracao = new Fracao(0, 7, false);
         assertEquals("0", fracao.toString());
     }
 }
