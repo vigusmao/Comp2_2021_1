@@ -14,6 +14,8 @@ public class ContaCorrente {
 
     private Gerente gerente;
 
+    private boolean ativa;
+
     public static final float SALDO_INICIAL_DA_CONTA = 10;  // "constante"
 
     private static int quantidadeDeTransacoesDeTodasAsContas = 0;
@@ -27,6 +29,7 @@ public class ContaCorrente {
         this.transacoes = new ArrayList<>();
         this.transacoes.add(String.format(
                 "Conta criada com saldo de R$%.2f", this.saldoEmReais));
+        this.ativa = true;
     }
 
     public float getSaldoEmReais() {
@@ -58,6 +61,10 @@ public class ContaCorrente {
             resultado += transacoes.get(i) + "\n";
         }
         return resultado;
+    }
+
+    public boolean isAtiva() {
+        return this.ativa;
     }
 
     /**
@@ -105,5 +112,27 @@ public class ContaCorrente {
 
     String obterDataAtualAsString() {
         return String.format("%s", new Date());
+    }
+
+    public void encerrar() {
+        if (this.saldoEmReais < 0) {
+            // ToDo lançar exceção
+            // não deixa encerrar conta com saldo negativo
+        }
+        this.ativa = false;  // desativou a conta
+
+        System.out.printf("\nConta %d encerrada", this.numero);
+    }
+
+    public Gerente getGerente() {
+        return gerente;
+    }
+
+    public void setGerente(Gerente novaGerente) {
+        if (this.gerente != null) {
+            // avisa ao gerente antigo que ele não é mais gerente
+            this.gerente.deixarDeGerenciarConta(this);
+        }
+        this.gerente = novaGerente;
     }
 }

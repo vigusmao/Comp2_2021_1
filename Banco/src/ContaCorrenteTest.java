@@ -1,7 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ContaCorrenteTest {
 
@@ -13,17 +15,17 @@ public class ContaCorrenteTest {
     private ContaCorrente contaDoJoao;
 
     private long cpfDaMaria = 22222;
-    private Correntista maria = new Correntista(cpfDaMaria, "Maria");
+    private Correntista maria;
     private ContaCorrente contaDaMaria = new ContaCorrente(2, maria);
 
     private float saldoInicial;
 
     @Before
     public void setUp() {
-        joao = new Correntista(cpfDoJoao, "João");
+        joao = new Correntista("João", cpfDoJoao);
         contaDoJoao = new ContaCorrente(1, joao);
 
-        maria = new Correntista(cpfDaMaria, "Maria");
+        maria = new Correntista("Maria", cpfDaMaria);
         contaDaMaria = new ContaCorrente(2, maria);
 
         saldoInicial = contaDoJoao.getSaldoEmReais();
@@ -144,6 +146,58 @@ public class ContaCorrenteTest {
         assertEquals("A conta corrente deve informar corretamente o CPF de seu correntista",
                 cpfDoJoao, contaDoJoao.getCpfDoCorrentista());
     }
+
+    @Test
+    public void testarContaEncerradaPeloGerenteDeContaErrado() {
+        Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
+
+        gerenteDeContaCarlos.encerrarConta(contaDoJoao);
+
+        assertTrue("Uma conta não pode ser encerrada por gerentes de conta " +
+                "que não gerenciem aquela conta", contaDoJoao.isAtiva());
+    }
+
+    @Test
+    public void testarContaEncerradaPeloGerenteDeContaCorreto() {
+        Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
+
+        gerenteDeContaCarlos.gerenciarConta(contaDoJoao);
+
+        // sanity check
+        assertTrue(gerenteDeContaCarlos.ehGerenteDaConta(contaDoJoao));
+
+        gerenteDeContaCarlos.encerrarConta(contaDoJoao);
+
+        assertFalse("Uma conta deve ficar com status de inativa após ser encerrada " +
+                "pelo seu gerente", contaDoJoao.isAtiva());
+
+        assertFalse("Contas encerradas não devem constar da lista de contas " +
+                "gerenciadas por gerente algum", gerenteDeContaCarlos.ehGerenteDaConta(contaDoJoao));
+    }
+
+    @Test
+    public void testarContaEncerradaPorUmGerenteGeral() {
+        Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
+
+        gerenteDeContaCarlos.gerenciarConta(contaDoJoao);
+
+        GerenteGeral gerenteGeralMariza = new GerenteGeral("Mariza Silva", 888, 2);
+
+        // sanity check
+        assertTrue(gerenteDeContaCarlos.ehGerenteDaConta(contaDoJoao));
+
+        gerenteGeralMariza.encerrarConta(contaDoJoao);
+
+        assertFalse("Uma conta deve ficar com status de inativa após ser encerrada " +
+                "por um gerente geral", contaDoJoao.isAtiva());
+
+        assertFalse("Uma conta encerrada não deve constar da lista de contas " +
+                "gerenciadas pelo gerente geral que a encerrou", gerenteGeralMariza.ehGerenteDaConta(contaDoJoao));
+
+        assertFalse("Contas encerradas não devem constar da lista de contas " +
+                "gerenciadas por gerente algum", gerenteDeContaCarlos.ehGerenteDaConta(contaDoJoao));
+    }
+
 
 //    @Test
 //    public void testarExtrato() {
