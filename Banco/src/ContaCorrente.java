@@ -118,6 +118,7 @@ public class ContaCorrente {
         if (this.saldoEmReais < 0) {
             // ToDo lançar exceção
             // não deixa encerrar conta com saldo negativo
+            return;
         }
         this.ativa = false;  // desativou a conta
 
@@ -129,7 +130,7 @@ public class ContaCorrente {
     }
 
     public void setGerente(Gerente novaGerente) {
-        if (this.gerente != null) {
+        if (this.gerente != null && !this.gerente.equals(novaGerente)) {
             // avisa ao gerente antigo que ele não é mais gerente
             this.gerente.deixarDeGerenciarConta(this);
         }
