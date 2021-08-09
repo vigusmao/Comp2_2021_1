@@ -1,4 +1,13 @@
-package PACKAGE_NAME;
+public class Cachorro extends Mamifero {
 
-public class Cachorro {
+    private String raca;
+
+    public Cachorro(String raca) {
+        this.raca = raca;
+    }
+
+    @Override
+    public void emitirSom() {
+        System.out.println("Latindo...");  // emitindo latidos!!!
+    }
 }

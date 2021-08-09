@@ -1,4 +1,11 @@
-package PACKAGE_NAME;
+public class Reptil extends Animal {
 
-public class Reptil {
+    @Override
+    public float getTemperatura() {
+        return 21.5f;
+    }
+
+    public void seArrastar() {
+        System.out.println("Me arrastando...");
+    }
 }

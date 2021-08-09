@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
-
-public class Crocodilo {
+public class Crocodilo extends Reptil {
 }

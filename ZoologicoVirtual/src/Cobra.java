@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
-
-public class Cobra {
+public class Cobra extends Reptil {
 }

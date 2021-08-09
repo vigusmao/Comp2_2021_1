@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
+public class Gato extends Mamifero {
 
-public class Gato {
+    @Override
+    public void emitirSom() {
+        System.out.println("Miando...");
+    }
 }
