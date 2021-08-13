@@ -1,5 +1,5 @@
-1) Modifique o nome da classe ContaCorrente para Conta,
-   e da classe AplicacaoFinanceira para ContaInvestimento
+1) Modifique o nome da classe Conta para Conta,
+   e da classe ContaInvestimento para ContaInvestimento
 
 2) Faça com que a classe ContaInvestimento herde da classe Conta
 

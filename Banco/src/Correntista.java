@@ -5,8 +5,8 @@ public class Correntista extends PessoaFisica {
     private static final int LIMITE_DEFAULT = 100;
 
     private float limiteChequeEspecial;
-    private ContaCorrente contaCorrente;
-    private ArrayList<AplicacaoFinanceira> investimentos;
+    private Conta contaCorrente;
+    private ArrayList<ContaInvestimento> investimentos;
 
     public Correntista(String nome, long cpf) {
         super(nome, cpf);
@@ -27,7 +27,11 @@ public class Correntista extends PessoaFisica {
         return 0;  // ToDo IMPLEMENT ME!!
     }
 
-    public ContaCorrente getContaCorrente() {
+    public Conta getContaCorrente() {
         return contaCorrente;
+    }
+
+    public void setContaCorrente(Conta contaCorrente) {
+        this.contaCorrente = contaCorrente;
     }
 }

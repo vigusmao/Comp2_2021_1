@@ -5,28 +5,28 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class ContaCorrenteTest {
+public class ContaTest {
 
     // para cobrir pequenos erros de precisão do tipo float
     private float FLOAT_DELTA = 0.00001f;
 
     private long cpfDoJoao = 12345;
     private Correntista joao;
-    private ContaCorrente contaDoJoao;
+    private Conta contaDoJoao;
 
     private long cpfDaMaria = 22222;
     private Correntista maria;
-    private ContaCorrente contaDaMaria = new ContaCorrente(2, maria);
+    private Conta contaDaMaria;
 
     private float saldoInicial;
 
     @Before
     public void setUp() {
         joao = new Correntista("João", cpfDoJoao);
-        contaDoJoao = new ContaCorrente(1, joao);
+        contaDoJoao = new Conta(1, joao);
 
         maria = new Correntista("Maria", cpfDaMaria);
-        contaDaMaria = new ContaCorrente(2, maria);
+        contaDaMaria = new Conta(2, maria);
 
         saldoInicial = contaDoJoao.getSaldoEmReais();
     }
@@ -131,14 +131,14 @@ public class ContaCorrenteTest {
     @Test
     public void testarTotalDeTransacoesEmTodasAsContas() {
         // testes anteriores podem ter incrementado esse atributo static
-        int transacoesAnteriores = ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas();
+        int transacoesAnteriores = Conta.getQuantidadeDeTransacoesDeTodasAsContas();
 
         contaDoJoao.receberDepositoEmDinheiro(1000);
-        assertEquals(transacoesAnteriores + 1, ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas());
+        assertEquals(transacoesAnteriores + 1, Conta.getQuantidadeDeTransacoesDeTodasAsContas());
 
-        ContaCorrente outraConta = new ContaCorrente(22222, joao);
+        Conta outraConta = new Conta(22222, joao);
         outraConta.sacar(5);
-        assertEquals(transacoesAnteriores + 2, ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas());
+        assertEquals(transacoesAnteriores + 2, Conta.getQuantidadeDeTransacoesDeTodasAsContas());
     }
 
     @Test

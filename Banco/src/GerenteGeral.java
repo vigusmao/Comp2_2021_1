@@ -15,7 +15,7 @@ public class GerenteGeral extends Gerente {
     }
 
     @Override
-    public void encerrarConta(ContaCorrente conta) {
+    public void encerrarConta(Conta conta) {
         gerenciarConta(conta);
         super.encerrarConta(conta);
     }

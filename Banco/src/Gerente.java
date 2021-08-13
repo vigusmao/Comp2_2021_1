@@ -7,7 +7,7 @@ public class Gerente extends PessoaFisica {
 
     private Date dataDeAdmissao;
 
-    private ArrayList<ContaCorrente> contasGerenciadas;
+    private ArrayList<Conta> contasGerenciadas;
 
     public Gerente(String nome, long cpf, long numeroMatricula) {
         super(nome, cpf);
@@ -25,20 +25,20 @@ public class Gerente extends PessoaFisica {
         return dataDeAdmissao;
     }
 
-    public void gerenciarConta(ContaCorrente conta) {
+    public void gerenciarConta(Conta conta) {
         this.contasGerenciadas.add(conta);
         conta.setGerente(this);
     }
 
-    public void deixarDeGerenciarConta(ContaCorrente conta) {
+    public void deixarDeGerenciarConta(Conta conta) {
         this.contasGerenciadas.remove(conta);
     }
 
-    public boolean ehGerenteDaConta(ContaCorrente conta) {
+    public boolean ehGerenteDaConta(Conta conta) {
         return this.contasGerenciadas.contains(conta);
     }
 
-    public void encerrarConta(ContaCorrente conta) {
+    public void encerrarConta(Conta conta) {
         if (!this.contasGerenciadas.contains(conta)) {
             return;  // ToDo lançar exceção
             // não vai encerrar se não é conta gerenciada por ele

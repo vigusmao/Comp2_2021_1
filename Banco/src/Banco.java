@@ -17,7 +17,12 @@ public class Banco {
         System.out.println(fulano.getNome());
 
 
-        ContaCorrente contaDoCicrano = new ContaCorrente(111, cicrano);
+        Conta contaDoCicrano = new Conta(111, cicrano);
+
+        ContaInvestimento contaInvestimentoDoCicrano = new ContaInvestimento(
+            222, cicrano, "RF", 0.01f);
+        System.out.printf("\nSaldo da conta investimento: R$%.2f",
+                contaInvestimentoDoCicrano.getSaldoEmReais());
 
 
         Gerente meuGerente = new Gerente("João", 12345678, 1111);
@@ -32,7 +37,7 @@ public class Banco {
         GerenteGeral gerentona = new GerenteGeral("Mariza Silva", 12333, 1);
 
 //        gerentona.gerenciarConta(contaDoCicrano);
-        gerentona.encerrarConta(contaDoCicrano);
+//        gerentona.encerrarConta(contaDoCicrano);
 
 
     }
