@@ -1,5 +1,7 @@
 package dominio;
 
+import dominio.Animal;
+
 public abstract class Mamifero extends Animal {
 
     public void mamar() {
@@ -12,14 +14,10 @@ public abstract class Mamifero extends Animal {
 
     @Override
     public void seAlimentar() {
-        if (getIdadeEmAnos() < 2 || this.nome.equals("Tom")) {
+        if (getIdadeEmAnos() < 2) {
             mamar();
         } else {
             comerComida();
         }
-    }
-
-    public void acasalar(Mamifero parceiro) {
-        
     }
 }

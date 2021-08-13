@@ -1,3 +1,5 @@
+package dominio;
+
 import java.time.LocalDate;
 
 public abstract class Animal {
@@ -7,6 +9,14 @@ public abstract class Animal {
     private String especie;
 
     private LocalDate dataNascimento;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public void respirar() {
         System.out.println("Respirando...");

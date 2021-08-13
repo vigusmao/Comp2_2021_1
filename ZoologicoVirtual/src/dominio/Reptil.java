@@ -1,4 +1,6 @@
-public class Reptil extends Animal {
+package dominio;
+
+public abstract class Reptil extends Animal {
 
     @Override
     public float getTemperatura() {

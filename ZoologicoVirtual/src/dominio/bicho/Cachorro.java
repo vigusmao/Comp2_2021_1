@@ -1,3 +1,7 @@
+package dominio.bicho;
+
+import dominio.Mamifero;
+
 public class Cachorro extends Mamifero {
 
     private String raca;
@@ -5,6 +9,8 @@ public class Cachorro extends Mamifero {
     public Cachorro(String raca) {
         this.raca = raca;
     }
+
+
 
     @Override
     public void emitirSom() {

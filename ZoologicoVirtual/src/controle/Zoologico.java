@@ -1,3 +1,7 @@
+package controle;
+
+import dominio.Animal;
+
 import java.util.ArrayList;
 
 public class Zoologico {
@@ -9,7 +13,7 @@ public class Zoologico {
     }
 
     public void receberAnimal(Animal novoBicho) {
-        System.out.println("Recebi um novo bicho do tipo " +
+        System.out.println("Recebi um novo dominio.bicho do tipo " +
                 novoBicho.getClass().getName() + ".");
 
         this.bichos.add(novoBicho);
@@ -17,5 +21,7 @@ public class Zoologico {
         novoBicho.seAlimentar();
 
         novoBicho.emitirSom();
+
+        System.out.println(novoBicho.getNome());
     }
 }
