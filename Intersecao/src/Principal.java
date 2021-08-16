@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Principal {
 
@@ -21,6 +19,18 @@ public class Principal {
                 intersecao.add(elemento);
             }
         }
+
+//        HashSet<Integer> mapinhaComOsElementosDaLista1 = new HashSet<>();
+//        for (Integer elementoDaLista1 : lista1) {
+//            mapinhaComOsElementosDaLista1.add(elementoDaLista1);
+//        }
+//
+//        for (Integer elementoDaLista2 : lista2) {
+//            if (mapinhaComOsElementosDaLista1.contains(elementoDaLista2)) {
+//                intersecao.add(elementoDaLista2);
+//            }
+//        }
+
         return intersecao;
     }
 
@@ -38,22 +48,32 @@ public class Principal {
 
     public static void main(String[] args) {
 
-        ArrayList<Integer> lista1 = new ArrayList<>();
-        ArrayList<Integer> lista2 = new ArrayList<>();
+        while (true) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("\nQual o tamanho das listas? ");
-        int tamanho = scanner.nextInt();
+            ArrayList<Integer> lista1 = new ArrayList<>();
+            ArrayList<Integer> lista2 = new ArrayList<>();
 
-        for (int i = 1; i <= tamanho; i++) {
-            lista1.add(sortearInt(1, 10 * tamanho));
-            lista2.add(sortearInt(1, 10 * tamanho));
+            Scanner scanner = new Scanner(System.in);
+            System.out.printf("\nQual o tamanho das listas? ");
+            int tamanho = scanner.nextInt();
+
+            if (tamanho <= 0) {
+                return;
+            }
+
+            for (int i = 1; i <= tamanho; i++) {
+                lista1.add(sortearInt(1, 10 * tamanho));
+                lista2.add(sortearInt(1, 10 * tamanho));
+            }
+
+//        System.out.println(lista1);
+//        System.out.println(lista2);
+
+            long inicio = System.currentTimeMillis();
+            System.out.printf("\nAs listas possuem %d elemento(s) em comum.",
+                    obterTamanhoIntersecao(lista1, lista2));
+            long duracao = System.currentTimeMillis() - inicio;
+            System.out.printf("\nDuracao = %.3f segundos", duracao / 1000.0);
         }
-
-        System.out.println(lista1);
-        System.out.println(lista2);
-
-        System.out.printf("\nAs listas possuem %d elemento(s) em comum.",
-                obterTamanhoIntersecao(lista1, lista2));
     }
 }

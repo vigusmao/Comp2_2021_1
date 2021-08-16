@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class JogoOnline {
@@ -9,11 +10,14 @@ public class JogoOnline {
 
     private Random random;
 
-    private ArrayList<Jogador> jogadores;
+//    private ArrayList<Jogador> jogadores;
+    private HashMap<String, Jogador> jogadorByUsername;  // (nome convencional: valorByChave)
+
 
     public JogoOnline() {
         this.random = new Random();
-        this.jogadores = new ArrayList<>();
+//        this.jogadores = new ArrayList<>();
+        this.jogadorByUsername = new HashMap<>();
     }
 
     /**
@@ -34,18 +38,20 @@ public class JogoOnline {
         Jogador novoJogador = new Jogador(username);
         novoJogador.setSenha(senha);
 
-        this.jogadores.add(novoJogador);
+//        this.jogadores.add(novoJogador);
+        this.jogadorByUsername.put(username, novoJogador);
 
         return novoJogador;
     }
 
     private Jogador encontrarJogador(String username) {
-        for (Jogador jogador : this.jogadores) {
-            if (jogador.getUsername().equals(username)) {
-                return jogador;
-            }
-        }
-        return null;
+//        for (Jogador jogador : this.jogadores) {
+//            if (jogador.getUsername().equals(username)) {
+//                return jogador;
+//            }
+//        }
+//        return null;
+        return this.jogadorByUsername.get(username);
     }
 
     public boolean fazerLogin(String username, String senha) {
@@ -154,21 +160,33 @@ public class JogoOnline {
      *         ou null, caso não encontre nenhum que atenda às condições
      */
     public Jogador escolherAdversario(Jogador solicitante) {
-        int posicaoInicial = this.random.nextInt(this.jogadores.size());
+        int numeroAleatorio = this.random.nextInt(this.jogadorByUsername.size());
 
-        int posicaoCorrente = posicaoInicial;
-        do {
-            Jogador adversario = this.jogadores.get(posicaoCorrente);
-            if (adversario.isOnline() &&
+        int cont = 0;
+
+        for (Jogador adversario : this.jogadorByUsername.values()) {
+            if (cont >= numeroAleatorio) {
+                if (adversario.isOnline() &&
                     !adversario.isJogando() &&
                     !adversario.equals(solicitante)) {
-                return adversario;
+                    return adversario;
+                }
             }
-            posicaoCorrente++;
-            if (posicaoCorrente == this.jogadores.size()) {
-                posicaoCorrente = 0;
-            }
-        } while (posicaoCorrente != posicaoInicial);
+            cont++;
+        }
+
+//        do {
+//            Jogador adversario = this.jogadores.get(posicaoCorrente);
+//            if (adversario.isOnline() &&
+//                    !adversario.isJogando() &&
+//                    !adversario.equals(solicitante)) {
+//                return adversario;
+//            }
+//            posicaoCorrente++;
+//            if (posicaoCorrente == this.jogadores.size()) {
+//                posicaoCorrente = 0;
+//            }
+//        } while (posicaoCorrente != posicaoInicial);
 
         return null;
     }
