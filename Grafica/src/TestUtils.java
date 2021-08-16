@@ -4,7 +4,7 @@ public class TestUtils {
 
     static Documento criarDocumento(int numeroDePaginas, String nome, boolean emCores) {
         ArrayList<String> paginas = new ArrayList<>();
-        for (int i = 1; i < numeroDePaginas; i++) {
+        for (int i = 1; i <= numeroDePaginas; i++) {
             String pagina = String.format("Página %d do documento %s", i, nome);
             paginas.add(pagina);
         }
