@@ -28,7 +28,7 @@ public class GraficaTest {
         grafica.adicionarImpressora(impressora3);
 
         docColorido = TestUtils.criarDocumento(10, "Doc Teste", true);
-        docPB = TestUtils.criarDocumento(50, "Doc Teste", true);
+        docPB = TestUtils.criarDocumento(50, "Doc Teste", false);
     }
 
     @Test

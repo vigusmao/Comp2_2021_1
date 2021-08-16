@@ -1,7 +1,7 @@
 1) Crie um unit test para o método getQuantidadeDeTransacoesDeTodasAsContas().
-   Dica: crie mais de uma ContaCorrente no seu teste
+   Dica: crie mais de uma Conta no seu teste
    e depois faça um assert chamando o método
-         ContaCorrente.getQuantidadeDeTransacoesDeTodasAsContas()
+         Conta.getQuantidadeDeTransacoesDeTodasAsContas()
    diretamente via nome da classe, como acima, uma vez que o método
    é static.
 

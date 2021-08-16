@@ -25,5 +25,4 @@ public class TestUtils {
                 return new ImpressoraLaser();
         }
     }
-
 }
