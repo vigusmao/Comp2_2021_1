@@ -29,6 +29,26 @@ public class SomaDoPar {
 
      // Algoritmo eficiente (linear):
 
+    /*
+        1) pré-processa: joga toda a lista num hash set
+        2) para cada elemento da lista...
+              computa o complemento dele
+              pergunta pro hash set se contém o complemento
+     */
+
+    // Outra proposta (Ana Vitória):
+
+    /*
+        1) cria um hash set vazio
+        2) para cada elemento x da lista...
+             computa o complemento y dele
+             pergunta pro hash set se contém y
+             se contiver y, lindo, encontrou, fim
+             senão, coloca x no hash set
+    */
+
+
+
 
 
         return null;  // ToDo IMPLEMENT ME!!!!
