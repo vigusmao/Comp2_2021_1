@@ -1,0 +1,21 @@
+1) Faça os testes em SomaDoParTest passarem,
+   escrevendo código eficiente.
+
+   Dica: use um HashSet.
+
+
+2) Faça os testes em CaracterMaisFrequenteTest passarem,
+   escrevendo código eficiente.
+
+   Dica: use um HashMap.
+
+
+3) Escreva um teste de performance
+   para comparar as suas implementações com as
+   implementações ingênuas (quadráticas)
+   dadas por mim.
+
+    Dica:
+    long inicio = System.currentTimeMillis();
+    // faz o que tem que fazer
+    long duracao = System.currentTimeMillis() - inicio;
