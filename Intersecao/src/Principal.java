@@ -4,34 +4,44 @@ public class Principal {
 
     static Random meuGerador = new Random();
 
-    public static int obterTamanhoIntersecao(
+    public static ArrayList<Integer> obterIntersecaoQuadratico(
             ArrayList<Integer> lista1, ArrayList<Integer> lista2) {
 
-        return obterIntersecao(lista1, lista2).size();
+        HashSet<Integer> intersecaoComoConjunto = new HashSet<>();
+
+        for (Integer elemento : lista1) {  // for each...
+            if (lista2.contains(elemento)) {
+                intersecaoComoConjunto.add(elemento);
+            }
+        }  // O(n^2)
+
+        ArrayList<Integer> intersecaoComoLista = new ArrayList<>();
+        intersecaoComoLista.addAll(intersecaoComoConjunto);  // O(n)
+
+        return intersecaoComoLista;
     }
 
-    public static ArrayList<Integer> obterIntersecao(
+    public static ArrayList<Integer> obterIntersecaoLinear(
             ArrayList<Integer> lista1, ArrayList<Integer> lista2) {
 
-        ArrayList<Integer> intersecao = new ArrayList<>();
-        for (Integer elemento : lista1) {  // for each...
-            if (lista2.contains(elemento) && !intersecao.contains(elemento)) {
-                intersecao.add(elemento);
+        HashSet<Integer> intersecaoComoConjunto = new HashSet<>();
+
+        HashSet<Integer> hashSetComOsElementosDaLista1 = new HashSet<>();
+
+        for (Integer elementoDaLista1 : lista1) {
+            hashSetComOsElementosDaLista1.add(elementoDaLista1);  // O(1), isto é, tempo constante
+        }  // O(n)
+
+        for (Integer elementoDaLista2 : lista2) {
+            if (hashSetComOsElementosDaLista1.contains(elementoDaLista2)) {  // O(1)
+                intersecaoComoConjunto.add(elementoDaLista2);  // O(1)
             }
-        }
+        }  // O(n)
 
-//        HashSet<Integer> mapinhaComOsElementosDaLista1 = new HashSet<>();
-//        for (Integer elementoDaLista1 : lista1) {
-//            mapinhaComOsElementosDaLista1.add(elementoDaLista1);
-//        }
-//
-//        for (Integer elementoDaLista2 : lista2) {
-//            if (mapinhaComOsElementosDaLista1.contains(elementoDaLista2)) {
-//                intersecao.add(elementoDaLista2);
-//            }
-//        }
+        ArrayList<Integer> intersecaoComoLista = new ArrayList<>();
+        intersecaoComoLista.addAll(intersecaoComoConjunto);  // O(n)
 
-        return intersecao;
+        return intersecaoComoLista;
     }
 
     /**
@@ -54,7 +64,7 @@ public class Principal {
             ArrayList<Integer> lista2 = new ArrayList<>();
 
             Scanner scanner = new Scanner(System.in);
-            System.out.printf("\nQual o tamanho das listas? ");
+            System.out.printf("\n\nQual o tamanho das listas? ");
             int tamanho = scanner.nextInt();
 
             if (tamanho <= 0) {
@@ -71,9 +81,16 @@ public class Principal {
 
             long inicio = System.currentTimeMillis();
             System.out.printf("\nAs listas possuem %d elemento(s) em comum.",
-                    obterTamanhoIntersecao(lista1, lista2));
+                    obterIntersecaoQuadratico(lista1, lista2).size());
             long duracao = System.currentTimeMillis() - inicio;
-            System.out.printf("\nDuracao = %.3f segundos", duracao / 1000.0);
+            System.out.printf("\nDuracao (quadratico) = %.3f segundos", duracao / 1000.0);
+
+            inicio = System.currentTimeMillis();
+            System.out.printf("\nAs listas possuem %d elemento(s) em comum.",
+                    obterIntersecaoLinear(lista1, lista2).size());
+            duracao = System.currentTimeMillis() - inicio;
+            System.out.printf("\nDuracao (linear) = %.3f segundos", duracao / 1000.0);
+
         }
     }
 }
