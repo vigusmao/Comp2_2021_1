@@ -39,13 +39,13 @@ public class GraficaTest {
 
     @Test
     public void testarRevezamentoImpressoras() {
-        grafica.imprimirDocumento(docColorido);
-        grafica.imprimirDocumento(docPB);
-        grafica.imprimirDocumento(docColorido);
-
         impressora1.carregarPapel(100000);
         impressora2.carregarPapel(100000);
         impressora3.carregarPapel(100000);
+
+        grafica.imprimirDocumento(docColorido);
+        grafica.imprimirDocumento(docPB);
+        grafica.imprimirDocumento(docColorido);
 
         assertEquals(1, impressora1.getQuantidadeDocumentosImpressos());
         assertEquals(1, impressora2.getQuantidadeDocumentosImpressos());
@@ -55,9 +55,33 @@ public class GraficaTest {
             grafica.imprimirDocumento(docColorido);
         }
 
-        String regraDeNegocio = "As impressoras precisar trabalhar em esquema de revezamento";
+        String regraDeNegocio = "As impressoras precisam trabalhar em esquema de revezamento";
         assertEquals(regraDeNegocio, 1001, impressora1.getQuantidadeDocumentosImpressos());
         assertEquals(regraDeNegocio, 1001, impressora2.getQuantidadeDocumentosImpressos());
         assertEquals(regraDeNegocio, 1001, impressora3.getQuantidadeDocumentosImpressos());
+    }
+
+    @Test
+    public void testarRemocaoImpressora() {
+        grafica.removerImpressora(impressora2);
+
+        impressora1.carregarPapel(200);
+        impressora3.carregarPapel(200);
+
+        for (int i = 0; i < 5; i++) {
+            grafica.imprimirDocumento(docColorido);
+        }
+
+        assertEquals(3, impressora1.getQuantidadeDocumentosImpressos());
+        assertEquals(2, impressora3.getQuantidadeDocumentosImpressos());
+
+        // neste ponto, a próxima impressora a ser usada será a de índice 1 (impressora3)
+
+        grafica.removerImpressora(impressora1);
+
+        // no entanto, aqui, ao removermos uma impressora, o ArrayList de impresoras
+        // passará a ter tamanho 1 (índice 1 será portanto inválido!)
+
+        grafica.imprimirDocumento(docColorido);  // exceção!!!
     }
 }

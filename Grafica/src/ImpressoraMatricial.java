@@ -1,5 +1,9 @@
 public class ImpressoraMatricial extends Impressora {
 
+    public ImpressoraMatricial(long numeroDeSerie) {
+        super("Impressora Matricial Qualquer", numeroDeSerie);
+    }
+
     @Override
     public void executarRotinaLimpeza() {
         System.out.println("Limpando matriz de caracteres...");

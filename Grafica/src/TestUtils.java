@@ -17,12 +17,16 @@ public class TestUtils {
             case "jato":
             case "jato de tinta":
             case "jatodetinta":
-                return new ImpressoraJatoDeTinta();
+                return new ImpressoraJatoDeTinta(
+                        "Jato de Tinta para Teste",
+                        1001 + ImpressoraJatoDeTinta.quantImpressorasJatosDeTintaCriadas);
             case "matricial":
-                return new ImpressoraMatricial();
+                return new ImpressoraMatricial(55555);
             case "laser":
             default:
-                return new ImpressoraLaser();
+                return new ImpressoraLaser("Laser para Teste",
+                        2001 + ImpressoraLaser.quantImpressorasLaserCriadas,
+                        40);
         }
     }
 }
