@@ -4,6 +4,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 public class ContaTest {
 
@@ -13,6 +14,7 @@ public class ContaTest {
     private long cpfDoJoao = 12345;
     private Correntista joao;
     private Conta contaDoJoao;
+    private int senhaDoJoao = 1234;
 
     private long cpfDaMaria = 22222;
     private Correntista maria;
@@ -24,6 +26,7 @@ public class ContaTest {
     public void setUp() {
         joao = new Correntista("João", cpfDoJoao);
         contaDoJoao = new Conta(1, joao);
+        contaDoJoao.setSenha(senhaDoJoao);
 
         maria = new Correntista("Maria", cpfDaMaria);
         contaDaMaria = new Conta(2, maria);
@@ -75,13 +78,20 @@ public class ContaTest {
     }
 
     @Test
-    public void testarSaqueComFundos() {
-        contaDoJoao.sacar(2);
+    public void testarSaqueComFundos() throws ContaInativaException, SenhaInvalidaException, SaldoInsuficienteException {
+        contaDoJoao.sacar(2, senhaDoJoao);
         assertEquals("O valor sacado deve ser descontado do saldo da conta",
                 saldoInicial - 2,
                 contaDoJoao.getSaldoEmReais(),
                 FLOAT_DELTA
         );
+    }
+
+    @Test(expected = SenhaInvalidaException.class)
+    public void testarSaqueComSenhaIncorreta()
+            throws ContaInativaException, SaldoInsuficienteException, SenhaInvalidaException {
+
+            contaDoJoao.sacar(2, 897987);
     }
 
     @Test
@@ -102,8 +112,8 @@ public class ContaTest {
     }
 
     @Test
-    public void testarSaqueSemFundos() {
-        contaDoJoao.sacar(100000);
+    public void testarSaqueSemFundos() throws ContaInativaException, SenhaInvalidaException, SaldoInsuficienteException {
+        contaDoJoao.sacar(100000, senhaDoJoao);
         assertEquals("Saques de valores maiores que o saldo não devem ser permitidos",
                 saldoInicial,
                 contaDoJoao.getSaldoEmReais(),
@@ -129,7 +139,9 @@ public class ContaTest {
     }
 
     @Test
-    public void testarTotalDeTransacoesEmTodasAsContas() {
+    public void testarTotalDeTransacoesEmTodasAsContas()
+            throws ContaInativaException, SenhaInvalidaException, SaldoInsuficienteException {
+
         // testes anteriores podem ter incrementado esse atributo static
         int transacoesAnteriores = Conta.getQuantidadeDeTransacoesDeTodasAsContas();
 
@@ -137,7 +149,7 @@ public class ContaTest {
         assertEquals(transacoesAnteriores + 1, Conta.getQuantidadeDeTransacoesDeTodasAsContas());
 
         Conta outraConta = new Conta(22222, joao);
-        outraConta.sacar(5);
+        outraConta.sacar(5, senhaDoJoao);
         assertEquals(transacoesAnteriores + 2, Conta.getQuantidadeDeTransacoesDeTodasAsContas());
     }
 
@@ -148,7 +160,7 @@ public class ContaTest {
     }
 
     @Test
-    public void testarContaEncerradaPeloGerenteDeContaErrado() {
+    public void testarContaEncerradaPeloGerenteDeContaErrado() throws ContaNaoGerenciadaException, SenhaInvalidaException, SaldoInsuficienteException {
         Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
 
         gerenteDeContaCarlos.encerrarConta(contaDoJoao);
@@ -158,7 +170,9 @@ public class ContaTest {
     }
 
     @Test
-    public void testarContaEncerradaPeloGerenteDeContaCorreto() {
+    public void testarContaEncerradaPeloGerenteDeContaCorreto()
+            throws ContaNaoGerenciadaException, SenhaInvalidaException, SaldoInsuficienteException {
+
         Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
 
         gerenteDeContaCarlos.gerenciarConta(contaDoJoao);
@@ -176,7 +190,9 @@ public class ContaTest {
     }
 
     @Test
-    public void testarContaEncerradaPorUmGerenteGeral() {
+    public void testarContaEncerradaPorUmGerenteGeral()
+            throws ContaNaoGerenciadaException, SenhaInvalidaException, SaldoInsuficienteException {
+
         Gerente gerenteDeContaCarlos = new Gerente("Carlos Roberto", 999, 20);
 
         gerenteDeContaCarlos.gerenciarConta(contaDoJoao);

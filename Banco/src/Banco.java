@@ -1,43 +1,42 @@
 public class Banco {
 
 
-
-
-
+    // Apenas testes rápidos
 
     public static void main(String[] args) {
 
         Correntista cicrano = new Correntista("Cicrano", 231232);
-
-        System.out.println(cicrano.getNome());
-        System.out.println(cicrano.getLimiteChequeEspecial());
-
-        PessoaFisica fulano = new PessoaFisica("Beltrana", 432212);
-
-        System.out.println(fulano.getNome());
-
-
         Conta contaDoCicrano = new Conta(111, cicrano);
 
-        ContaInvestimento contaInvestimentoDoCicrano = new ContaInvestimento(
-            222, cicrano, "RF", 0.01f);
-        System.out.printf("\nSaldo da conta investimento: R$%.2f",
-                contaInvestimentoDoCicrano.getSaldoEmReais());
+        try {
+            contaDoCicrano.sacar(100, 1234);
+
+            System.out.println("Saque bem sucedido!");
 
 
-        Gerente meuGerente = new Gerente("João", 12345678, 1111);
-        meuGerente.setEndereco("Novo endereço, numero tal");
+        } catch (SenhaInvalidaException e) {
 
-        System.out.println(meuGerente.getNome());
-        System.out.println(meuGerente.getDataDeAdmissao());
+            int contTentativas = e.getNumeroDeTentativasErradas();
+            System.out.printf("\nCuidado! Esta foi sua %da tentativa",
+                    contTentativas);
 
+        } catch (SaldoInsuficienteException e) {
 
+            float saldoFaltante = e.getSaldoFaltante();
+            if (saldoFaltante < 1000) {
+                System.out.println("Faltou pouco. Quer um empréstimo?");
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
 
+        } catch (Exception e) {
+            System.out.println("Deu ruim!!! não sei o motivo!!!");
+        }
 
-        GerenteGeral gerentona = new GerenteGeral("Mariza Silva", 12333, 1);
+        // continuo depois do try...catch
 
-//        gerentona.gerenciarConta(contaDoCicrano);
-//        gerentona.encerrarConta(contaDoCicrano);
+        // blablabla
+
 
 
     }

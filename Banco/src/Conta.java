@@ -6,7 +6,11 @@ public class Conta {
 
     private final int numero;
 
+    private int senha;
+
     private Correntista correntista;
+
+    private int contSenhasInvalidasConsecutivas = 0;
 
     protected float saldoEmReais = 0;
 
@@ -38,6 +42,23 @@ public class Conta {
         if (isContaCorrente()) {
             this.correntista.setContaCorrente(this);
         }
+    }
+
+    public int getSenha() {
+        return senha;
+    }
+
+    public int setSenha(int senha) {
+        if (senha > 999999) {
+            return 1;  // ToDo lançar exceção (precisa no máximo 6 caracteres)
+        }
+
+        if (senha == this.senha) {
+            return 2;  // ToDo lançar exceção (não poder repetir a última senha)
+        }
+
+        this.senha = senha;
+        return 0;
     }
 
     protected boolean isContaCorrente() {
@@ -97,9 +118,35 @@ public class Conta {
         return quantidadeDeTransacoesDeTodasAsContas;
     }
 
-    public void sacar(float valor) {
+    /**
+     * Efetua um saque.
+     *
+     * @param valor o valor desejado
+     * @param senha a senha da conta
+     *
+     * @throws SenhaInvalidaException se a senha estiver incorreta
+     * @throws SaldoInsuficienteException se não houver fundos suficientes
+     * @throws ContaInativaException se a conta estiver inativa ou bloqueada
+     */
+    public void sacar(float valor, int senha)
+            throws SenhaInvalidaException, SaldoInsuficienteException, ContaInativaException {
+
+        if (senha != this.senha) {
+            this.contSenhasInvalidasConsecutivas++;
+            if (this.contSenhasInvalidasConsecutivas == 5) {
+                this.ativa = false;  // bloqueou a conta!!!!
+            }
+            throw new SenhaInvalidaException(this.contSenhasInvalidasConsecutivas);
+        }
+
         if (valor > this.saldoEmReais) {
-            return;  // não tem fundos, então não faço nada
+            SaldoInsuficienteException excecao = new SaldoInsuficienteException();
+            excecao.setSaldoFaltante(valor - this.saldoEmReais);
+            throw excecao;
+        }
+
+        if (!this.ativa) {
+            throw new ContaInativaException();
         }
 
         this.saldoEmReais -= valor;

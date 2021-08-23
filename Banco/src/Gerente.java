@@ -38,14 +38,20 @@ public class Gerente extends PessoaFisica {
         return this.contasGerenciadas.contains(conta);
     }
 
-    public void encerrarConta(Conta conta) {
+    public void encerrarConta(Conta conta)
+            throws ContaNaoGerenciadaException, SenhaInvalidaException, SaldoInsuficienteException {
+
         if (!this.contasGerenciadas.contains(conta)) {
-            return;  // ToDo lançar exceção
+            throw new ContaNaoGerenciadaException();
             // não vai encerrar se não é conta gerenciada por ele
         }
 
-        conta.sacar(conta.getSaldoEmReais());  // sacar valor restante na conta
-        conta.encerrar();
+        try {
+            conta.sacar(conta.getSaldoEmReais(), conta.getSenha());  // sacar valor restante na conta
+            conta.encerrar();
+        } catch (ContaInativaException e) {
+            // a conta já está inativa mesmo, não preciso fazer nada
+        }
 
         deixarDeGerenciarConta(conta);
     }
