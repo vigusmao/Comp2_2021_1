@@ -32,5 +32,22 @@ public class TesteRapido {
         for (String mes : diasDoMesPorNome.keySet()) {
             System.out.println(mes);
         }
+
+
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < 10000; i++) {
+            sb.append("abcdeaaaa");
+        }
+
+        String minhaStringGrandona = sb.toString();
+
+
+
+        String base = "abcdeaaaa";
+        String grandona = "";
+        for (int i = 0; i < 10000; i++) {
+            grandona += base;
+        }
     }
 }
