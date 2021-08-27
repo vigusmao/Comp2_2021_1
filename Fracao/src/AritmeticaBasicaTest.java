@@ -12,5 +12,7 @@ public class AritmeticaBasicaTest {
         assertEquals(1, AritmeticaBasica.calcularMaximoDivisorComum(50, 21));
         assertEquals(1, AritmeticaBasica.calcularMaximoDivisorComum(5, 7));
         assertEquals(1, AritmeticaBasica.calcularMaximoDivisorComum(5, 1));
+
+        AritmeticaBasica.calcularMaximoDivisorComum(5, 0);
     }
 }

@@ -32,13 +32,17 @@ public class Grafica {
         this.indiceProximaImpressoraNoRevezamento++;
     }
 
-    public float orcarImpressao(Documento documento) {
+    public float orcarImpressao(Documento documento) throws NullPointerException {
         return documento.getQuantPaginas() *
                 (documento.isEmCores() ?
                         this.precoPorPaginaColorida :
                         this.precoPorPaginaPB);
     }
 
+    /**
+     * Adicionaremos uma impressora à lista de impressoras da loja
+     * @param impressora um objeto (não nulo!!!) do tipo Impressora
+     */
     public void adicionarImpressora(Impressora impressora) {
         this.impressoras.add(impressora);
         this.impressoraByNumeroDeSerie.put(
