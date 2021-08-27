@@ -10,13 +10,11 @@ public class JogoOnline {
 
     private Random random;
 
-//    private ArrayList<Jogador> jogadores;
     private HashMap<String, Jogador> jogadorByUsername;  // (nome convencional: valorByChave)
 
 
     public JogoOnline() {
         this.random = new Random();
-//        this.jogadores = new ArrayList<>();
         this.jogadorByUsername = new HashMap<>();
     }
 
@@ -38,50 +36,16 @@ public class JogoOnline {
         Jogador novoJogador = new Jogador(username);
         novoJogador.setSenha(senha);
 
-//        this.jogadores.add(novoJogador);
         this.jogadorByUsername.put(username, novoJogador);
 
         return novoJogador;
     }
 
     private Jogador encontrarJogador(String username) {
-//        for (Jogador jogador : this.jogadores) {
-//            if (jogador.getUsername().equals(username)) {
-//                return jogador;
-//            }
-//        }
-//        return null;
         return this.jogadorByUsername.get(username);
     }
 
     public boolean fazerLogin(String username, String senha) {
-//        for (int i = 0; i < this.jogadores.size(); i++) {
-//            Jogador jogador = this.jogadores.get(i);
-//            if (jogador.getUsername().equals(username)) {
-//                if (jogador.getSenha().equals(senha)) {
-//                    jogador.setOnline(true);
-//                    return true;
-//                }
-//                break;
-//            }
-//        }
-//        return false;
-//
-//        // outro jeito...
-//
-//        for (Jogador jogador : this.jogadores) {      // for each
-//            if (jogador.getUsername().equals(username)) {
-//                if (jogador.getSenha().equals(senha)) {
-//                    jogador.setOnline(true);
-//                    return true;
-//                }
-//                break;
-//            }
-//        }
-//        return false;
-
-        // melhor jeito (uma vez que já temos um método para localizar o jogador)...
-
         Jogador jogador = encontrarJogador(username);
         if (jogador != null) {
             if (jogador.getSenha().equals(senha)) {
@@ -90,14 +54,10 @@ public class JogoOnline {
             }
         }
         return false;
-
     }
 
-    public void fazerLogout(String username) {
-        Jogador jogador = encontrarJogador(username);
-        if (jogador != null) {
-            jogador.setOnline(false);
-        }
+    public void fazerLogout(Jogador jogador) {
+        jogador.setOnline(false);
     }
 
     /**
@@ -125,17 +85,24 @@ public class JogoOnline {
         return novaPartida;
     }
 
+    /**
+     * Encerra uma partida em andamento.
+     *
+     * @param partida Uma partida em andamento
+     * @param resultado O resultado da partida que será encerrada:
+     *                  0 (empate), 1 (vitória do jogador 1) ou 2 (vitória do jogador 2)
+     */
     public void encerrarPartida(Partida partida, int resultado) {
         if (partida.getResultado() != Partida.PARTIDA_EM_ANDAMENTO) {
             // a partida não está em andamento, não posso atribuir resultado!
-            return;  // ToDo lançar uma exceção!!!
+            throw new RuntimeException("Partida já encerrada!");
         }
 
         if (resultado != Partida.EMPATE &&
                 resultado != Partida.VITORIA_JOGADOR_1 &&
                 resultado != Partida.VITORIA_JOGADOR_2) {
-            // resultado inválido, não faz nada!
-            return;  // ToDo lançar uma excecão!!!
+            throw new IllegalArgumentException("Resultado inválido");
+            // a IllegalArgumentException é uma RuntimeException (herança)
         }
 
         partida.setResultado(resultado);
@@ -174,20 +141,6 @@ public class JogoOnline {
             }
             cont++;
         }
-
-//        do {
-//            Jogador adversario = this.jogadores.get(posicaoCorrente);
-//            if (adversario.isOnline() &&
-//                    !adversario.isJogando() &&
-//                    !adversario.equals(solicitante)) {
-//                return adversario;
-//            }
-//            posicaoCorrente++;
-//            if (posicaoCorrente == this.jogadores.size()) {
-//                posicaoCorrente = 0;
-//            }
-//        } while (posicaoCorrente != posicaoInicial);
-
         return null;
     }
 }
