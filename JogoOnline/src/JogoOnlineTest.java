@@ -94,7 +94,7 @@ public class JogoOnlineTest {
         assertTrue(jogadoraMaria.isOnline());
 
         jogo.fazerLogout(jogadoraMaria);
-        
+
         assertFalse(jogadoraMaria.isOnline());
     }
 

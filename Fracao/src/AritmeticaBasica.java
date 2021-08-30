@@ -2,14 +2,13 @@ public class AritmeticaBasica {
 
     /**
      *
-     * @param x
-     * @param y
-     * @return o mdc, se for possível calcular;
-     * null, se um dos parâmetros for 0
+     * @param x um inteiro positivo
+     * @param y um inteiro positivo
+     * @return o mdc, se for possível calcular
      */
-    public static Integer calcularMaximoDivisorComum(int x, int y) {
+    public static int calcularMaximoDivisorComum(int x, int y) {
         if (x == 0 || y == 0) {
-            return null;
+            throw new RuntimeException("Os parâmetros precisam ser positivos.");
         } else {
             int resto = x % y;
             while (resto != 0) {

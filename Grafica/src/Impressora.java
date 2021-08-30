@@ -18,12 +18,15 @@ public abstract class Impressora {
      *
      * @param documento O documento a ser impresso
      *
-     * @return true, se impressão bem sucedida; false, caso contrário
+     * @throws PapelInsuficienteException se não houver folhas suficientes para o documento inteiro
+     * @throws TintaEsgotadaException se acabar a tinta
      */
-    public boolean imprimirDocumento(Documento documento) {
+    public void imprimirDocumento(Documento documento)
+            throws PapelInsuficienteException, TintaEsgotadaException {
+
         // verifica se há papel suficiente (se não houver, não imprime)
         if (quantFolhasRestantes < documento.getQuantPaginas()) {
-            return false;
+            throw new PapelInsuficienteException();
         }
 
         // incrementa o número de documentos impressos
@@ -34,8 +37,6 @@ public abstract class Impressora {
             executarImpressaoPagina(documento.getPagina(i));
             this.quantFolhasRestantes--;
         }
-
-        return true;
     }
 
     public void carregarPapel(int numeroDeFolhas) {
@@ -60,5 +61,5 @@ public abstract class Impressora {
 
     public abstract void executarRotinaLimpeza();
 
-    public abstract void executarImpressaoPagina(String pagina);
+    public abstract void executarImpressaoPagina(String pagina) throws TintaEsgotadaException;
 }

@@ -13,23 +13,28 @@ public class ImpressoraJatoDeTinta extends Impressora {
     }
 
     @Override
-    public void executarImpressaoPagina(String pagina) {
+    public void executarImpressaoPagina(String pagina) throws TintaEsgotadaException {
+
+        if (getNivelTintaPreta() == 0) {
+            throw new TintaEsgotadaException("preta");
+        }
+
         System.out.println("Imprimindo utilizando jatos de tinta...");
     }
 
     public int getNivelTintaPreta() {
-        return 0;  // ToDo IMPLEMENT ME!!!
+        return 10;  // ToDo IMPLEMENT ME!!!
     }
 
     public int getNivelTintaAmarela() {
-        return 0;  // ToDo IMPLEMENT ME!!!
+        return 10;  // ToDo IMPLEMENT ME!!!
     }
 
     public int getNivelTintaMagenta() {
-        return 0;  // ToDo IMPLEMENT ME!!!
+        return 10;  // ToDo IMPLEMENT ME!!!
     }
 
     public int getNivelTintaCiano() {
-        return 0;  // ToDo IMPLEMENT ME!!!
+        return 10;  // ToDo IMPLEMENT ME!!!
     }
 }

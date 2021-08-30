@@ -34,12 +34,12 @@ public class Fracao {
      * @param denominador um inteiro positivo
      * @param sinal true, se positiva (ou zero); false, se negativa
      */
-    public Fracao(int numerador, int denominador, boolean sinal) throws DenominadorZeroException {  // overload do construtor
+    public Fracao(int numerador, int denominador, boolean sinal) {  // overload do construtor
         if (numerador < 0) {
             throw new RuntimeException("O numerador precisa ser não-negativo!");
         }
         if (denominador <= 0) {
-            throw new DenominadorZeroException();
+            throw new RuntimeException("O denominador precisa ser positivo!");
         }
 
         this.numerador = numerador;

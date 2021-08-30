@@ -21,18 +21,31 @@ public class Grafica {
 
     public void imprimirDocumento(Documento documento) {
 
-        if (this.indiceProximaImpressoraNoRevezamento >= this.impressoras.size()) {
-            this.indiceProximaImpressoraNoRevezamento =
-                    this.indiceProximaImpressoraNoRevezamento % this.impressoras.size();
-        }
-        Impressora impressoraDaVez = this.impressoras.get(this.indiceProximaImpressoraNoRevezamento);
+        boolean ok = false;
 
-        impressoraDaVez.imprimirDocumento(documento);
+        while (!ok) {
+            if (this.indiceProximaImpressoraNoRevezamento >= this.impressoras.size()) {
+                this.indiceProximaImpressoraNoRevezamento =
+                        this.indiceProximaImpressoraNoRevezamento % this.impressoras.size();
+            }
+            Impressora impressoraDaVez = this.impressoras.get(this.indiceProximaImpressoraNoRevezamento);
+
+            try {
+                impressoraDaVez.imprimirDocumento(documento);
+                ok = true;
+            } catch (PapelInsuficienteException e) {
+
+                impressoraDaVez.carregarPapel(500);
+
+            } catch (TintaEsgotadaException e) {
+
+            }
+        }
 
         this.indiceProximaImpressoraNoRevezamento++;
     }
 
-    public float orcarImpressao(Documento documento) throws NullPointerException {
+    public float orcarImpressao(Documento documento) {
         return documento.getQuantPaginas() *
                 (documento.isEmCores() ?
                         this.precoPorPaginaColorida :
