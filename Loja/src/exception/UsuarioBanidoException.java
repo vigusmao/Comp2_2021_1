@@ -1,4 +1,4 @@
 package exception;
 
-public class UsuarioBanidoException {
+public class UsuarioBanidoException extends Exception {  // checked
 }

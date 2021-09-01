@@ -1,4 +1,4 @@
 package exception;
 
-public class CartaoNaoAutorizadoException {
+public class CartaoNaoAutorizadoException extends Exception {
 }
