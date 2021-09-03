@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Fracao {
+public class Fracao implements Comparable<Fracao> {
 
     private int numerador;  // o valor absoluto (não-negativo) do numerador
     private int denominador;  // o valor absoluto (positivo) do denominador
@@ -193,5 +193,16 @@ public class Fracao {
     @Override
     public int hashCode() {
         return Objects.hash(numerador, denominador, sinal);
+    }
+
+    @Override
+    public int compareTo(Fracao o) {
+        if (this.getValorNumerico() > o.getValorNumerico()) {
+            return 1;
+        } else if (this.getValorNumerico() < o.getValorNumerico()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

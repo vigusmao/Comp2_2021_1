@@ -1,0 +1,20 @@
+1) Crie um ComparadorDeJogadoresLexicografico (ordem alfabética)
+
+    DICA: na hora de comparar, lembre-se que o username
+    é uma String, e que a classe String já implementa
+    Comparable<String>, portanto você pode pedir
+    para o username de um jogar executar compareTo() passando
+    o username do outro jogador como parâmetro.
+
+2) Crie em JogoOnline um método obterJogadoresEmOrdemAlfabetica()
+   que faça o que o nome diz, i.e., eetorna uma lista ordenada
+   lexicograficamente.
+
+3) Crie um unit test para os métodos de JogoOnline obterRanking()
+   e obterJogadoresEmOrdemAlfabetica()
+
+
+EXTRA (for those who care)   :-)))
+faça o mesmo na classe Fracao, ou seja,
+crie teste para o compareTo() de Fracao.
+

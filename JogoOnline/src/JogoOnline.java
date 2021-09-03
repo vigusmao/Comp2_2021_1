@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class JogoOnline {
 
@@ -41,22 +39,67 @@ public class JogoOnline {
         return novoJogador;
     }
 
+    /**
+     * Retorna uma lista ordenada de jogadores, do jogador de maior pontuação
+     * até o jogador de menor pontuação.
+     *
+     * @return
+     */
+    public List<Jogador> obterRanking() {
+
+        ArrayList<Jogador> listaDeJogadores = new ArrayList<>();
+        listaDeJogadores.addAll(this.jogadorByUsername.values());
+
+        // um jeito de ordenar
+        ComparadorDeJogadoresPorPontuacao comparador = new ComparadorDeJogadoresPorPontuacao();
+        listaDeJogadores.sort(comparador);  // precisamos passar um Comparator<Jogador>
+
+        // queremos em ordem DECRESCENTE!!! Por isso vou inverter a lista!
+        Collections.reverse(listaDeJogadores);
+
+        // segundo jeito de ordenar uma lista
+//        Collections.sort(listaDeJogadores);  aqui Jogador teria que implementar a interface Comparable<Jogador>
+
+        return listaDeJogadores;
+    }
+
     private Jogador encontrarJogador(String username) {
         return this.jogadorByUsername.get(username);
     }
 
-    public boolean fazerLogin(String username, String senha) {
+    /**
+     * Faz o login do usuário.
+     * @param username o nome do usuário
+     * @param senha a senha
+     *
+     * @throws UsuarioInexistenteException se usuário não cadastrado
+     * @throws SenhaInvalidaException se senha incorreta
+     */
+    public void fazerLogin(String username, String senha)
+            throws UsuarioInexistenteException, SenhaInvalidaException {
+
         Jogador jogador = encontrarJogador(username);
-        if (jogador != null) {
-            if (jogador.getSenha().equals(senha)) {
-                jogador.setOnline(true);
-                return true;
-            }
+        if (jogador == null) {
+            throw new UsuarioInexistenteException();
         }
-        return false;
+
+        if (!jogador.getSenha().equals(senha)) {
+            throw new SenhaInvalidaException();
+        }
+
+        jogador.setOnline(true);
     }
 
+    /**
+     * Desloga o usuário
+     *
+     * @param jogador um Jogador que esteja online
+     *                (caso não esteja, uma RuntimeException será lançada)
+     */
     public void fazerLogout(Jogador jogador) {
+        if (!jogador.isOnline()) {
+            throw new RuntimeException("Usuário não logado");
+        }
         jogador.setOnline(false);
     }
 

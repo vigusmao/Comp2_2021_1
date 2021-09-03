@@ -28,8 +28,11 @@ public class Principal {
         int loginsBemSucedidos = 0;
         for (int i = 1; i <= LOGINS; i++) {
             String username = "Jogador" + i;
-            if (jogo.fazerLogin(username, "" + i)) {
+            try {
+                jogo.fazerLogin(username, "" + i);
                 loginsBemSucedidos++;
+            } catch (Exception e) {
+                // login falhou... tudo bem, vamos tentar outro usuário
             }
         }
 
