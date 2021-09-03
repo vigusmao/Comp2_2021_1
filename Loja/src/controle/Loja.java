@@ -102,7 +102,23 @@ public class Loja {
         if (vendavel instanceof Transportavel) {
             try {
                 entregar(this.caminhao, (Transportavel) vendavel, quantidade, comprador.getEndereco());
+                Pessoa fulana = null;
+                fulana.setNome("Fulana");
+
             } catch (PesoMaximoExcedidoException|VolumeMaximoExcedidoException e) {
+
+                // blablalblab
+
+
+
+
+            } finally {
+
+                /* o código que estiver aqui será executado
+                   NO MATTER WHAT!!!!!
+                   Aconteça o que acontecer!!!!!
+
+                */
             }
         }
 
