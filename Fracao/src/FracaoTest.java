@@ -1,10 +1,26 @@
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class FracaoTest {
 
     private final double DELTA = 0.000001;
+
+    private Fracao umMeio;
+    private Fracao menosDoisTercos;
+    private Fracao zero;
+
+    @Before
+    public void setUp() {
+        umMeio = new Fracao(1, 2);
+        menosDoisTercos = new Fracao(2, 3, false);
+        zero = new Fracao(0, 23423);
+    }
 
     @Test
     public void testarEqualsParaNumeradoEDenominadorIdenticos() {
@@ -135,16 +151,32 @@ public class FracaoTest {
     }
 
     @Test
-    public void testarSoma() {
-        Fracao fracao1 = new Fracao(1, 3);
-        Fracao fracao2 = new Fracao(3, 5);
+    public void testarSomaComOutraFracao() {
+        Fracao fracao1 = new Fracao(1, 10);
+        Fracao fracao2 = new Fracao(-2, 15);
 
-        Fracao resultadoEsperado = new Fracao(14, 15);
+        Fracao resultadoEsperado = new Fracao(-1, 30);
         Fracao resultadoObtido = fracao1.somar(fracao2);
 
         assertEquals(resultadoEsperado.getNumerador(), resultadoObtido.getNumerador());
         assertEquals(resultadoEsperado.getDenominador(), resultadoObtido.getDenominador());
+        assertFalse(resultadoObtido.getSinal());
+
+        assertEquals("-1/30", resultadoObtido.toString());
+    }
+
+    @Test
+    public void testarSomaComInteiro() {
+        Fracao fracao1 = new Fracao(-2, 15);
+
+        Fracao resultadoEsperado = new Fracao(43, 15);
+        Fracao resultadoObtido = fracao1.somar(3);
+
+        assertEquals(resultadoEsperado.getNumerador(), resultadoObtido.getNumerador());
+        assertEquals(resultadoEsperado.getDenominador(), resultadoObtido.getDenominador());
         assertTrue(resultadoObtido.getSinal());
+
+        assertEquals("43/15", resultadoObtido.toString());
     }
 
     @Test
@@ -210,5 +242,34 @@ public class FracaoTest {
 
         fracao = new Fracao(0, 7, false);
         assertEquals("0", fracao.toString());
+    }
+
+    @Test
+    public void testarComparacao() {
+        assertTrue(umMeio.compareTo(umMeio) == 0);
+        assertTrue(umMeio.compareTo(menosDoisTercos) > 0);
+        assertTrue(umMeio.compareTo(zero) > 0);
+
+        assertTrue(menosDoisTercos.compareTo(umMeio) < 0);
+        assertTrue(menosDoisTercos.compareTo(menosDoisTercos) == 0);
+        assertTrue(menosDoisTercos.compareTo(zero) < 0);
+
+        assertTrue(zero.compareTo(umMeio) < 0);
+        assertTrue(zero.compareTo(menosDoisTercos) > 0);
+        assertTrue(zero.compareTo(zero) == 0);
+    }
+
+    @Test
+    public void testarOrdenacao() {
+        List<Fracao> lista = new ArrayList<>();
+        lista.add(umMeio);
+        lista.add(menosDoisTercos);
+        lista.add(zero);
+
+        Collections.sort(lista);
+
+        assertEquals(menosDoisTercos, lista.get(0));
+        assertEquals(zero, lista.get(1));
+        assertEquals(umMeio, lista.get(2));
     }
 }

@@ -103,7 +103,8 @@ public class Fracao implements Comparable<Fracao> {
             return;  // já inicializado, nada a fazer!
         }
 
-        int mdc = AritmeticaBasica.calcularMaximoDivisorComum(
+        int mdc = this.numerador == 0 ? 1 :
+                AritmeticaBasica.calcularMaximoDivisorComum(
                 this.numerador, this.denominador);
 
         if (mdc == 1) {
@@ -123,11 +124,22 @@ public class Fracao implements Comparable<Fracao> {
      * @return uma TERCEIRA fração, criada agora, com o resultado da operação
      */
     public Fracao somar(Fracao outra) {
-        return null;  // ToDo IMPLEMENT ME!!!!
+
+        int novoNumeradorDestaFracao = this.numerador * outra.denominador * (this.sinal ? 1 : -1);
+        int novoNumeradorDaOutraFracao = outra.numerador * this.denominador * (outra.sinal ? 1 : -1);
+
+        int numeradorResultado = novoNumeradorDestaFracao + novoNumeradorDaOutraFracao;
+        int denominadorResultado = this.denominador * outra.denominador;
+
+        Fracao resultado = new Fracao(numeradorResultado, denominadorResultado);
+
+        resultado.simplificar();
+
+        return resultado;
     }
 
     public Fracao somar(int numero) {
-        return null;  // ToDo IMPLEMENT ME!!!!
+        return somar(new Fracao(numero, 1));
     }
 
     /**

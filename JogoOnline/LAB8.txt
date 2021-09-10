@@ -7,7 +7,7 @@
     o username do outro jogador como parâmetro.
 
 2) Crie em JogoOnline um método obterJogadoresEmOrdemAlfabetica()
-   que faça o que o nome diz, i.e., eetorna uma lista ordenada
+   que faça o que o nome diz, i.e., retorna uma lista ordenada
    lexicograficamente.
 
 3) Crie um unit test para os métodos de JogoOnline obterRanking()

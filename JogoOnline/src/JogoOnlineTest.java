@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class JogoOnlineTest {
@@ -86,7 +88,6 @@ public class JogoOnlineTest {
     @Test
     public void testarLogout() throws UsuarioInexistenteException, SenhaInvalidaException {
         Jogador jogadoraMaria = jogo.cadastrarJogador("maria", "3456");
-
         jogo.fazerLogin("maria", "3456");
 
         assertTrue(jogadoraMaria.isOnline());
@@ -103,5 +104,42 @@ public class JogoOnlineTest {
         jogo.fazerLogout(jogadoraMaria);
         // impossível fazer o logou t de jogador que nõ está online,
         // então esperamos tomar uma RuntimeException
+    }
+
+    @Test
+    public void testarRanking() throws UsuarioInexistenteException, SenhaInvalidaException {
+        Jogador jogadorJoao = jogo.cadastrarJogador("joao", "1234");
+        Jogador jogadoraMaria = jogo.cadastrarJogador("maria", "3456");
+        Jogador jogadorJose = jogo.cadastrarJogador("jose", "999");
+
+        jogo.fazerLogin("joao", "1234");
+        jogo.fazerLogin("maria", "3456");
+        jogo.fazerLogin("jose", "999");
+
+        Partida partida1 = jogo.iniciarPartida(jogadorJoao, jogadoraMaria);
+        jogo.encerrarPartida(partida1, 2);
+
+        List<Jogador> ranking = jogo.obterRanking();
+
+        assertEquals(jogadoraMaria, ranking.get(0));
+        assertEquals(jogadorJose, ranking.get(1));
+        assertEquals(jogadorJoao, ranking.get(2));
+    }
+
+    @Test
+    public void testarOrdemAlfabetica() throws UsuarioInexistenteException, SenhaInvalidaException {
+        Jogador jogadorJoao = jogo.cadastrarJogador("joao", "1234");
+        Jogador jogadoraMaria = jogo.cadastrarJogador("maria", "3456");
+        Jogador jogadorJose = jogo.cadastrarJogador("jose", "999");
+
+        jogo.fazerLogin("joao", "1234");
+        jogo.fazerLogin("maria", "3456");
+        jogo.fazerLogin("jose", "999");
+
+        List<Jogador> ordemAlfabetica = jogo.obterJogadoresEmOrdemAlfabetica();
+
+        assertEquals(jogadorJoao, ordemAlfabetica.get(0));
+        assertEquals(jogadorJose, ordemAlfabetica.get(1));
+        assertEquals(jogadoraMaria, ordemAlfabetica.get(2));
     }
 }

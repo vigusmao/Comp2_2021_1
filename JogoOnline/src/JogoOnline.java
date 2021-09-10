@@ -43,7 +43,7 @@ public class JogoOnline {
      * Retorna uma lista ordenada de jogadores, do jogador de maior pontuação
      * até o jogador de menor pontuação.
      *
-     * @return
+     * @return a lista ordenada desejada
      */
     public List<Jogador> obterRanking() {
 
@@ -59,6 +59,23 @@ public class JogoOnline {
 
         // segundo jeito de ordenar uma lista
 //        Collections.sort(listaDeJogadores);  aqui Jogador teria que implementar a interface Comparable<Jogador>
+
+        return listaDeJogadores;
+    }
+
+    /**
+     * Retorna uma lista de jogadores em ordem lexicográfica de username.
+     *
+     * @return a lista ordenada desejada
+     */
+    public List<Jogador> obterJogadoresEmOrdemAlfabetica() {
+
+        ArrayList<Jogador> listaDeJogadores = new ArrayList<>();
+        listaDeJogadores.addAll(this.jogadorByUsername.values());
+
+        // um jeito de ordenar
+        ComparadorDeJogadoresLexicografico comparador = new ComparadorDeJogadoresLexicografico();
+        listaDeJogadores.sort(comparador);  // precisamos passar um Comparator<Jogador>
 
         return listaDeJogadores;
     }
