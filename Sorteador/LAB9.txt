@@ -1,0 +1,77 @@
+1) Crie uma interface Sorteador, com um único método
+        int sortear(),
+   que retorna um inteiro escolhido a partir de um experimento aleatório qualquer.
+
+2) Crie uma classe Dado, que implementa a interface Sorteador. O dado tem como característica sortear
+   um inteiro entre 1 e 6, cada qual com a mesma probabilidade.
+
+   (Dica: o método nextInt(int bound) do objeto Random sorteia um inteiro com probabilidade uniforme
+   entre 0 e bound - 1.)
+
+3) Crie uma classe DadosDeGamao, que também implementa Sorteador. Objetos dessa classe têm
+   como característica jogar dois dados comuns de 6 faces e somar os dois valores obtidos.
+   Caso os dois valores sejam iguais, o resultado retornado será na verdade o DOBRO da soma
+   daqueles valores, ou seja, o quádruplo daquele valor.
+
+   Exemplos: resultados dos dados: 1 e 3; valor retornado: 1 + 3 = 4
+             resultados dos dados: 5 e 2; valor retornado: 5 + 2 = 7
+             resultados dos dados: 5 e 5; valor retornado: 2 * (5 + 5) = 4 * 5 = 20
+
+   (Obs: não reescreva uma maneira de sortear um número entre 1 e 6. Use um objeto Dado para isso.)
+
+4) Crie uma classe DadosTriplos, que também implementa a mesma interface. Objetos dessa classe
+   sorteiam o inteiro que será retornado jogando três vezes um dado e somando os três pontos obtidos.
+
+5) Crie uma classe abstrata JogoDeDoisJogadores, que possui os atributos
+     - String nomeJogo
+     - String nomeJogador1
+     - String nomeJogador2
+     - int numeroDeRodadas
+     - ArrayList<Integer> historicoResultados
+
+     e os métodos públicos
+
+     - String getNomeJogo();
+     - String getNomeJogador1();
+     - String getNomeJogador2();
+     - int getNumeroDeRodadas();
+     - String jogar().
+
+     No construtor público o JogoDeDoisJogadores deve receber o nome do jogo,
+     os nomes dos dois participantes e o número de "rodadas" que serão disputadas.
+
+     Dentro do método jogar(), você deve repetir várias chamadas a um método
+         protected abstract int executarRodadaDoJogo(),
+     uma para cada "rodada". O vencedor do jogo será o jogador que vencer o maior número
+     de rodadas. O método jogar() deverá retornar uma String da seguinte forma:
+     "O jogador [NOME DO JOGADOR QUE VENCEU] venceu o jogo por
+     [NÚMERO DE RODADAS VENCIDAS PELO VENCEDOR] a [NÚMERO DE RODADAS VENCIDAS PELO PERDEDOR]",
+     ou
+     "O jogo terminou em empate após [NÚMERO DE RODADAS] rodadas."
+
+     O método executarRodadaDoJogo(), que é abstrato (o único abstrato nesta classe), não será implementado
+     na classe JogoDeDoisJogadores. Ele deverá ser implementado por qualquer subclasse concreta
+     da classe JogoDeDoisJogadores, retornando
+         1 se houver vitória do Jogador 1 naquela rodada;
+         2 se houver vitória do Jogador 2 naquela rodada; ou
+         0, caso a rodada tenha terminado empatada.
+
+6) Crie uma classe JogoMalucoComSorteadores que herde de JogoDeDoisJogadores.
+   O construtor dessa classe, além de outros parâmetros que você julgue necessários,
+   deverá receber dois objetos que implementem Sorteador;
+   o primeiro deles, digamos, "sorteador1", será o sorteador de números usado pelo Jogador 1;
+   o segundo deles, digamos, "sorteador2," será o sorteador de números usado pelo Jogador 2.
+   Essa classe deve fazer um Override no método executarRodadaDoJogo()
+   que deverá funcionar da seguinte maneira:
+   - utiliza-se o sorteador1 para obter um inteiro para o Jogador 1;
+   - em seguida, utiliza-se o sorteador2 para obter um inteiro para o Jogador 2;
+   - o jogador com o maior inteiro ganha; se forem iguais, há empate na rodada. Simples assim.
+
+7) Escreva um método main() em que você:
+   - criará um JogoMalucoComSorteadores utilizando um objeto DadosDeGamao
+   para o Jogador 1, e um objeto DadosTriplos para o Jogador 2 (o nome do jogo e os nomes dos jogadores são livres)
+   - informe 10000 como número de rodadas
+   - chamará o método jogar do jogo criado
+
+8) Extras:
+   - Responda, olhando os resultados: qual o melhor sorteador? Você saberia dizer isso antes de rodar o programa?
