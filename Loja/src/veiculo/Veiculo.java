@@ -32,7 +32,10 @@ public class Veiculo implements Transportavel, Transportador {
             throw new PesoMaximoExcedidoException(pesoMaximoSuportadoEmGramas);
         }
 
-        if (transportavel.getDimensoes().getVolumeEmCm3() > this.volumeMaximoEmCm3) {
+        final Dimensoes dimensoes = transportavel.getDimensoes();
+
+        if (dimensoes != null &&
+                dimensoes.getVolumeEmCm3() > this.volumeMaximoEmCm3) {
             throw new VolumeMaximoExcedidoException(volumeMaximoEmCm3);
         }
 

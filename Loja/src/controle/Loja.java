@@ -1,27 +1,28 @@
 package controle;
 
 import exception.*;
-import veiculo.Caminhao;
 
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Loja {
+public class Loja <V extends Vendavel> {
 
     private Pessoa dono;
 
-    private HashMap<Long, Vendavel> vendavelByCodigo;
+    private HashMap<Long, V> vendavelByCodigo;
 
-    private HashMap<Vendavel, Integer> quantidadeByVendavel;
+    private HashMap<V, Integer> quantidadeByVendavel;
 
     private HashSet<Usuario> usuariosBanidos;
 
-    private Caminhao caminhao;
+    private Transportador transportador;
 
-    public Loja() {
+    public Loja(Transportador transportador) {
         this.vendavelByCodigo = new HashMap<>();
         this.quantidadeByVendavel = new HashMap<>();
         this.usuariosBanidos = new HashSet<>();
+
+        this.transportador = transportador;  // associação
     }
 
     /**
@@ -35,13 +36,13 @@ public class Loja {
      * @param vendavel O vendavel desejado
      * @param quantidade A quantidade do vendavel a ser acrescentada ao estoque
      */
-    public void incluirVendavelNoEstoque(Vendavel vendavel, int quantidade) {
+    public void incluirVendavel(V vendavel, int quantidade) {
         this.vendavelByCodigo.put(vendavel.getCodigo(), vendavel);
         this.quantidadeByVendavel.put(vendavel,
                 getQuantidadeEmEstoque(vendavel) + quantidade);
     }
 
-    public Vendavel encontrarVendavel(long codigo) {
+    public V encontrarVendavel(long codigo) {
         return this.vendavelByCodigo.get(codigo);
     }
 
@@ -55,7 +56,7 @@ public class Loja {
      * @throws EstoqueInsuficienteException se não houver em estoque a quantidade TOTAL desejada
      *
      */
-    public int getQuantidadeEmEstoque(Vendavel vendavel) {
+    public int getQuantidadeEmEstoque(V vendavel) {
         return this.quantidadeByVendavel.getOrDefault(vendavel, 0);
     }
 
@@ -74,7 +75,7 @@ public class Loja {
      * @throws EnderecoInvalidoException se o comprador não tiver endereço cadastrado
      * @throws PagamentoException se houver qualquer problema na hora de pagar
      */
-    public Recibo efetuarVenda(Vendavel vendavel, int quantidade, Usuario comprador)
+    public Recibo efetuarVenda(V vendavel, int quantidade, Usuario comprador)
             throws EstoqueInsuficienteException, EnderecoInvalidoException, PagamentoException {
 
         int quantidadeEmEstoque = getQuantidadeEmEstoque(vendavel);
@@ -101,15 +102,11 @@ public class Loja {
 
         if (vendavel instanceof Transportavel) {
             try {
-                entregar(this.caminhao, (Transportavel) vendavel, quantidade, comprador.getEndereco());
-                Pessoa fulana = null;
-                fulana.setNome("Fulana");
+                entregar(this.transportador, (Transportavel) vendavel, quantidade, comprador.getEndereco());
 
             } catch (PesoMaximoExcedidoException|VolumeMaximoExcedidoException e) {
 
                 // blablalblab
-
-
 
 
             } finally {

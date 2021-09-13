@@ -6,6 +6,8 @@ public class Pessoa implements Transportador, Transportavel {
 
     private String nome;
 
+    private String endereco;
+
     public Pessoa(long cpf, String nome) {
         this.cpf = cpf;
         this.nome = nome;
@@ -21,6 +23,14 @@ public class Pessoa implements Transportador, Transportavel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public void transportar(Transportavel transportavel, String endereco) {
