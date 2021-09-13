@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Fracao implements Comparable<Fracao> {
+public class Fracao extends Number implements Comparable<Number> {
 
     private int numerador;  // o valor absoluto (não-negativo) do numerador
     private int denominador;  // o valor absoluto (positivo) do denominador
@@ -208,13 +208,27 @@ public class Fracao implements Comparable<Fracao> {
     }
 
     @Override
-    public int compareTo(Fracao o) {
-        if (this.getValorNumerico() > o.getValorNumerico()) {
-            return 1;
-        } else if (this.getValorNumerico() < o.getValorNumerico()) {
-            return -1;
-        } else {
-            return 0;
-        }
+    public int compareTo(Number o) {
+        return Double.compare(this.doubleValue(), o.doubleValue());
+    }
+
+    @Override
+    public int intValue() {
+        return (int) getValorNumerico();
+    }
+
+    @Override
+    public long longValue() {
+        return (long) getValorNumerico();
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) getValorNumerico();
+    }
+
+    @Override
+    public double doubleValue() {
+        return getValorNumerico();
     }
 }
