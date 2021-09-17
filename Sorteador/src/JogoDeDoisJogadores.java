@@ -84,7 +84,7 @@ public abstract class JogoDeDoisJogadores {
                 this.historicoResultados.size() - 1);
 
         int contRodadasVencidasJogador1 = ultimaPartidaJogada.contRodadasVencidasJogador1;
-        int contRodadasVencidasJogador2 = ultimaPartidaJogada.contRodadasVencidasJogador1;
+        int contRodadasVencidasJogador2 = ultimaPartidaJogada.contRodadasVencidasJogador2;
 
         if (contRodadasVencidasJogador1 == contRodadasVencidasJogador2) {
             return String.format("O jogo terminou em empate após %d rodadas.",
