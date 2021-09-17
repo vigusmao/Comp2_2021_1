@@ -12,7 +12,7 @@ public abstract class JogoDeDoisJogadores {
     private final String nomeJogador2;
     private final int numeroDeRodadas;
 
-    private ArrayList<ResultadoPartida> historicoResultados;
+    private ArrayList<Partida> historicoResultados;
 
     public JogoDeDoisJogadores(
             String nomeJogo, String nomeJogador1, String nomeJogador2,
@@ -59,21 +59,15 @@ public abstract class JogoDeDoisJogadores {
             }
         }
 
-        // armazena o resultado no histórico
-        ResultadoPartida resultadoPartida = new ResultadoPartida(
+        // armazena a partida no histórico
+        Partida partidaTerminada = new Partida(
                 new Date(),
                 contVitoriasJogador1,
                 contVitoriasJogador2,
                 this.numeroDeRodadas - contVitoriasJogador1 - contVitoriasJogador2);
-        this.historicoResultados.add(resultadoPartida);
+        this.historicoResultados.add(partidaTerminada);
 
-        // retorno o resultado desta partida
-        if (contVitoriasJogador1 > contVitoriasJogador2) {
-            return VITORIA_JOGADOR_1;
-        } else if (contVitoriasJogador1 < contVitoriasJogador2) {
-            return VITORIA_JOGADOR_2;
-        }
-        return EMPATE;
+        return partidaTerminada.getResultado();
     }
 
     /**
@@ -86,7 +80,7 @@ public abstract class JogoDeDoisJogadores {
             return null;
         }
 
-        ResultadoPartida ultimaPartidaJogada = this.historicoResultados.get(
+        Partida ultimaPartidaJogada = this.historicoResultados.get(
                 this.historicoResultados.size() - 1);
 
         int contRodadasVencidasJogador1 = ultimaPartidaJogada.contRodadasVencidasJogador1;
@@ -151,21 +145,31 @@ public abstract class JogoDeDoisJogadores {
     /**
      * Inner class auxiliar para armazenar resultados de partidas
      */
-    private class ResultadoPartida {
+    private class Partida {
 
         final Date data;
         final int contRodadasVencidasJogador1;
         final int contRodadasVencidasJogador2;
         final int contEmpates;
 
-        public ResultadoPartida(Date data,
-                                int contRodadasVencidasJogador1,
-                                int contRodadasVencidasJogador2,
-                                int contEmpates) {
+        Partida(Date data,
+                int contRodadasVencidasJogador1,
+                int contRodadasVencidasJogador2,
+                int contEmpates) {
             this.data = data;
             this.contRodadasVencidasJogador1 = contRodadasVencidasJogador1;
             this.contRodadasVencidasJogador2 = contRodadasVencidasJogador2;
             this.contEmpates = contEmpates;
+        }
+
+        int getResultado() {
+            // retorno o resultado desta partida
+            if (contRodadasVencidasJogador1 > contRodadasVencidasJogador2) {
+                return VITORIA_JOGADOR_1;
+            } else if (contRodadasVencidasJogador1 < contRodadasVencidasJogador2) {
+                return VITORIA_JOGADOR_2;
+            }
+            return EMPATE;
         }
     }
 }
