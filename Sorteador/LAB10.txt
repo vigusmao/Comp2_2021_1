@@ -1,0 +1,30 @@
+1) Implementar, na classe JogoDeDoisJogadores,
+   os métodos que retornam os percentuais de vitórias
+
+2) No main() da classe Principal, para cada iteração do laço que lá está,
+   ou seja, para cada número fixo de rodadas por jogo,
+   chama o método jogar() um número grande de vezes (digamos, 1000 vezes),
+   e após todas essas execuções do jogar(), imprima os percentuais de vitória
+   de cada jogador (e de empate). Exemplo:
+
+      Para partidas com 1 rodada:
+      Vitórias do Jogador 1: 70.3%
+      Vitórias do Jogador 2: 20.7%
+      Empates: 9.0%
+
+      Para partidas com 2 rodadas:
+      Vitórias do Jogador 1: 90.0%
+      Vitórias do Jogador 2: 6.1%
+      Empates: 3.9%
+
+      ...
+
+3) Na classe JogoMalucoComSorteadores, informe dois tipos genéricos S1 e S2,
+   que precisarão implementar a interface Sorteador.
+   No construtor, será exigido que os sorteadores informados estejam
+   de acordo com os tipos genéricos.
+   Na declaração de um JogoMalucoComSorteadores, você deverá indicar
+   quais são os tipos de sorteador que serão utilizados para substituir
+   aqueles "coringas" (generics).
+   No main(), faça a modificação necessária na hora de declarar seu
+   JogoMalucoComSorteadores.
