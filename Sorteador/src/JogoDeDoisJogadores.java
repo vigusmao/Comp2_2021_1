@@ -14,9 +14,9 @@ public abstract class JogoDeDoisJogadores {
 
     private ArrayList<Partida> historicoResultados;
 
-    private ArrayList<Partida> partidasVencidasPeloJogador1;
-    private ArrayList<Partida> partidasVencidasPeloJogador2;
-    private ArrayList<Partida> partidasEmpatadas;
+    private int contPartidasVencidasPeloJogador1;
+    private int contPartidasVencidasPeloJogador2;
+    private int contPartidasEmpatadas;
 
     public JogoDeDoisJogadores(
             String nomeJogo, String nomeJogador1, String nomeJogador2,
@@ -29,9 +29,9 @@ public abstract class JogoDeDoisJogadores {
 
         this.historicoResultados = new ArrayList<>();
 
-        this.partidasVencidasPeloJogador1 = new ArrayList<>();
-        this.partidasVencidasPeloJogador2 = new ArrayList<>();
-        this.partidasEmpatadas = new ArrayList<>();
+        this.contPartidasVencidasPeloJogador1 = 0;
+        this.contPartidasVencidasPeloJogador2 = 0;
+        this.contPartidasEmpatadas = 0;
     }
 
     public String getNomeJogo() {
@@ -79,13 +79,13 @@ public abstract class JogoDeDoisJogadores {
 
         switch (resultadoFinalDaPartida) {
             case VITORIA_JOGADOR_1:
-                this.partidasVencidasPeloJogador1.add(partidaTerminada);
+                this.contPartidasVencidasPeloJogador1++;
                 break;
             case VITORIA_JOGADOR_2:
-                this.partidasVencidasPeloJogador2.add(partidaTerminada);
+                this.contPartidasVencidasPeloJogador2++;
                 break;
             case EMPATE: default:
-                this.partidasEmpatadas.add(partidaTerminada);
+                this.contPartidasEmpatadas++;
         }
 
         return resultadoFinalDaPartida;
@@ -138,7 +138,7 @@ public abstract class JogoDeDoisJogadores {
      * @return o percentual, como um float entre 0 (0%) e 100 (100%)
      */
     public double getPercentualVitoriasJogador1() {
-        return 100.0 * this.partidasVencidasPeloJogador1.size() / this.historicoResultados.size();
+        return 100.0 * this.contPartidasVencidasPeloJogador1 / this.historicoResultados.size();
     }
 
     /**
@@ -148,7 +148,7 @@ public abstract class JogoDeDoisJogadores {
      * @return o percentual, como um float entre 0 (0%) e 100 (100%)
      */
     public double getPercentualVitoriasJogador2() {
-        return 100.0 * this.partidasVencidasPeloJogador2.size() / this.historicoResultados.size();
+        return 100.0 * this.contPartidasVencidasPeloJogador2 / this.historicoResultados.size();
     }
 
     /**
@@ -157,8 +157,8 @@ public abstract class JogoDeDoisJogadores {
      *
      * @return o percentual, como um float entre 0 (0%) e 100 (100%)
      */
-    public float getPercentualEmpates() {
-        return 0;  // ToDo IMPLEMENT ME!!!!
+    public double getPercentualEmpates() {
+        return 100.0 * this.contPartidasEmpatadas / this.historicoResultados.size();
     }
 
     protected abstract int executarRodadaDoJogo();
