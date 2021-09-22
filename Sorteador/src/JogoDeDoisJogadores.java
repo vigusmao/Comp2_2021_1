@@ -28,6 +28,10 @@ public abstract class JogoDeDoisJogadores {
         this.numeroDeRodadas = numeroDeRodadas;
 
         this.historicoResultados = new ArrayList<>();
+
+        this.partidasVencidasPeloJogador1 = new ArrayList<>();
+        this.partidasVencidasPeloJogador2 = new ArrayList<>();
+        this.partidasEmpatadas = new ArrayList<>();
     }
 
     public String getNomeJogo() {
@@ -71,7 +75,20 @@ public abstract class JogoDeDoisJogadores {
                 this.numeroDeRodadas - contVitoriasJogador1 - contVitoriasJogador2);
         this.historicoResultados.add(partidaTerminada);
 
-        return partidaTerminada.getResultado();
+        int resultadoFinalDaPartida = partidaTerminada.getResultado();
+
+        switch (resultadoFinalDaPartida) {
+            case VITORIA_JOGADOR_1:
+                this.partidasVencidasPeloJogador1.add(partidaTerminada);
+                break;
+            case VITORIA_JOGADOR_2:
+                this.partidasVencidasPeloJogador2.add(partidaTerminada);
+                break;
+            case EMPATE: default:
+                this.partidasEmpatadas.add(partidaTerminada);
+        }
+
+        return resultadoFinalDaPartida;
     }
 
     /**
@@ -121,7 +138,7 @@ public abstract class JogoDeDoisJogadores {
      * @return o percentual, como um float entre 0 (0%) e 100 (100%)
      */
     public double getPercentualVitoriasJogador1() {
-        return obterPercentualResultados(VITORIA_JOGADOR_1);
+        return 100.0 * this.partidasVencidasPeloJogador1.size() / this.historicoResultados.size();
     }
 
     /**
@@ -131,20 +148,7 @@ public abstract class JogoDeDoisJogadores {
      * @return o percentual, como um float entre 0 (0%) e 100 (100%)
      */
     public double getPercentualVitoriasJogador2() {
-        return obterPercentualResultados(VITORIA_JOGADOR_2);
-    }
-
-    private double obterPercentualResultados(int resultadoDesejado) {
-        int totalPartidas = this.historicoResultados.size();
-        int contResultadosAlvo = 0;
-
-        for (Partida partida : this.historicoResultados) {
-            if (partida.getResultado() == resultadoDesejado) {
-                contResultadosAlvo++;
-            }
-        }
-
-        return contResultadosAlvo / (double) totalPartidas;
+        return 100.0 * this.partidasVencidasPeloJogador2.size() / this.historicoResultados.size();
     }
 
     /**
