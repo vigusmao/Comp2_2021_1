@@ -3,9 +3,11 @@ import java.util.Date;
 
 public abstract class JogoDeDoisJogadores {
 
-    public static final int EMPATE = 0;
-    public static final int VITORIA_JOGADOR_1 = 1;
-    public static final int VITORIA_JOGADOR_2 = 2;
+    enum Resultado {
+        EMPATE,
+        VITORIA_JOGADOR_1,
+        VITORIA_JOGADOR_2
+    }
 
     private final String nomeJogo;
     private final String nomeJogador1;
@@ -50,18 +52,18 @@ public abstract class JogoDeDoisJogadores {
         return numeroDeRodadas;
     }
 
-    public int jogar() {
+    public Resultado jogar() {
 
         int contVitoriasJogador1 = 0;
         int contVitoriasJogador2 = 0;
 
         for (int rodada = 1; rodada <= this.numeroDeRodadas; rodada++) {
-            int resultadoDaRodada = executarRodadaDoJogo();
+            Resultado resultadoDaRodada = executarRodadaDoJogo();
             switch (resultadoDaRodada) {
-                case 1:
+                case VITORIA_JOGADOR_1:
                     contVitoriasJogador1++;
                     break;
-                case 2:
+                case VITORIA_JOGADOR_2:
                     contVitoriasJogador2++;
                     break;
             }
@@ -75,7 +77,7 @@ public abstract class JogoDeDoisJogadores {
                 this.numeroDeRodadas - contVitoriasJogador1 - contVitoriasJogador2);
         this.historicoResultados.add(partidaTerminada);
 
-        int resultadoFinalDaPartida = partidaTerminada.getResultado();
+        Resultado resultadoFinalDaPartida = partidaTerminada.getResultado();
 
         switch (resultadoFinalDaPartida) {
             case VITORIA_JOGADOR_1:
@@ -161,7 +163,7 @@ public abstract class JogoDeDoisJogadores {
         return 100.0 * this.contPartidasEmpatadas / this.historicoResultados.size();
     }
 
-    protected abstract int executarRodadaDoJogo();
+    protected abstract Resultado executarRodadaDoJogo();
 
     /**
      * Inner class auxiliar para armazenar resultados de partidas
@@ -171,26 +173,26 @@ public abstract class JogoDeDoisJogadores {
         final Date data;
         final int contRodadasVencidasJogador1;
         final int contRodadasVencidasJogador2;
-        final int contEmpates;
+        final int contRodadasEmpatadas;
 
         Partida(Date data,
                 int contRodadasVencidasJogador1,
                 int contRodadasVencidasJogador2,
-                int contEmpates) {
+                int contRodadasEmpatadas) {
             this.data = data;
             this.contRodadasVencidasJogador1 = contRodadasVencidasJogador1;
             this.contRodadasVencidasJogador2 = contRodadasVencidasJogador2;
-            this.contEmpates = contEmpates;
+            this.contRodadasEmpatadas = contRodadasEmpatadas;
         }
 
-        int getResultado() {
-            // retorno o resultado desta partida
+        Resultado getResultado() {
+            // retorna o resultado desta partida
             if (contRodadasVencidasJogador1 > contRodadasVencidasJogador2) {
-                return VITORIA_JOGADOR_1;
+                return Resultado.VITORIA_JOGADOR_1;
             } else if (contRodadasVencidasJogador1 < contRodadasVencidasJogador2) {
-                return VITORIA_JOGADOR_2;
+                return Resultado.VITORIA_JOGADOR_2;
             }
-            return EMPATE;
+            return Resultado.EMPATE;
         }
     }
 }
