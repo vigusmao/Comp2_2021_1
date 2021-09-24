@@ -1,13 +1,13 @@
-public class DadosTriplos implements Sorteador {
+public class DadosTriplos implements Sorteador<Integer> {
 
-    private Dado dadoComum;
+    private DadoComum dadoComum;
 
     public DadosTriplos() {
-        this.dadoComum = new Dado();
+        this.dadoComum = new DadoComum();
     }
 
     @Override
-    public int sortear() {
+    public Integer sortear() {
         int resultado = 0;
         for (int i = 0; i < 3; i++) {
             resultado += this.dadoComum.sortear();

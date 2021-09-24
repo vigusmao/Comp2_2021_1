@@ -1,14 +1,14 @@
-public class DadosDeGamao implements Sorteador {
+public class DadosDeGamao implements Sorteador<Integer> {
 
-    private Dado dadoComum;
+    private DadoComum dadoComum;
 
     public DadosDeGamao() {
-        this.dadoComum = new Dado();
+        this.dadoComum = new DadoComum();
     }
 
 
     @Override
-    public int sortear() {
+    public Integer sortear() {
         int valor1 = this.dadoComum.sortear();
         int valor2 = this.dadoComum.sortear();
         int resultado = valor1 + valor2;

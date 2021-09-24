@@ -1,0 +1,125 @@
+História:
+
+Primeiro jogador (DOIS PARES CONSECUTIVOS): joga um dado 4 vezes, com resultados A, B, C, D.
+O sorteador desse jogador retornará 1 se A==B && C==D;
+e retornará 0 caso contrário.
+
+Segundo jogador (UM TRIO): joga um dado 3 vezes, com resultados X, Y, Z.
+O sorteador desse jogador retornará 1 se A==B==C;
+e reornará 0 caso contrário.
+
+
+Implemente um "dado", isto é, um sorteador de inteiros, que receba
+como entrada um mapa de frequência relativa por valor possível a ser
+sorteado. Por exemplo:
+
+{
+  1  --> 1
+  2  --> 1
+  3  --> 1
+  4  --> 1
+  5  --> 1
+  6  --> 1
+} seria um dado honesto de 6 faces;
+
+{
+  1  --> 1
+  2  --> 1
+} seria uma moeda honesta;
+
+{
+  1  --> 50
+  2  --> 10
+  3  --> 10
+  4  --> 10
+  5  --> 10
+  6  --> 10
+} seria um dado em que, em metade das vezes,
+isto é, em 50/(50+10+10+10+10+10) = 1/2 das vezes, sai o número 1,
+e em metade sai qualquer outro valor uniformemente.
+
+Frequências acumuladas:
+1: 50
+2: 60
+3: 70
+4: 80
+5: 90
+6: 100
+
+sorteia um número x entre 0 e a maior frequência acumulada
+if x < acumulado[1] retorna 1
+else if x < acumulado[2] retorna 2
+else if x < acumulado[3] retorna 3
+   ...
+else if x < acumulado[6] retorna 6
+
+(só que fazendo isso dentro de um loop, onde vamos atualizando
+ a cada passo o valor da frequência acumulada e testando se o
+ acumulado até o momento já é maior que o número sorteado;
+ quando for, retorna o valor associado àquele acumulado)
+
+
+
+{
+ indice   resultado   -->  freq
+    0         1       -->   1
+    1         2       -->   1
+    2         3       -->   6
+    3         4       -->   3
+} seria algo maluco que sorteia
+   1 em 1/11 das vezes,
+   2 em 1/11 das vezes,
+   3 em 6/11 das vezes, e
+   4 em 3/11 das vezes
+
+ Frequências acumuladas:
+ 1: 1
+ 2: 2
+ 3: 8
+ 4: 11
+
+Sortearíamos um float x entre 0 (inclusive) e 11 (exclusive)
+com uniformidade, via random.nextFloat() * 11
+
+Se x < 1 retorna 1
+Senão se x < 2 retorna 2
+Senão se x < 8 retorna 3
+Senão se x < 11 retorn 4
+
+
+
+
+
+
+Exercícios:
+
+1) Termine a classe DadoGenerico<T>, que recebe no construtor
+   um mapa frequenciaRelativaByResultado, como discutido
+   acima. Essa classe deve implementar a interface Sorteador<T>.
+   No método sortear(), deve produzir cada resultado que é chave
+   no mapa recebido no construtor com a frequência relativa
+   que lhe foi associada, também como discutido acima.
+
+2) Implementar o SorteadorViaDoisParesConsecutivos, que recebe
+   no construtor um DadoGenerico para ser usado
+   (pode inclusive ser um DadoComum).
+   No método sortear(),
+   joga um dado 4 vezes, com resultados A, B, C, D.
+   retornando 1 se A==B && C==D
+   e 0 caso contrário.
+
+3) Implementar o SorteadorViaTrio, que recebe
+   no construtor um DadoGenerico para ser usado
+   (pode inclusive ser um DadoComum).
+   No método sortear(),
+   joga um dado 3 vezes, com resultados X, Y, Z.
+   retornando 1 se A==B==C
+   e 0 caso contrário.
+
+4) Repetir a simulação do exercício 2 do LAB 10,
+   comparando as probabilidades de vitória do jogador
+   que usa os PARES CONSECUTIVOS e do jogador que usa
+   o TRIO. Faça isso usando um dado honesto para os dois
+   sorteadores, e depois usando pelo menos um tipo
+   de dado desonesto (por exemplo, um dado "viciado" em que
+   determinado valor aconteça em 90% das vezes)

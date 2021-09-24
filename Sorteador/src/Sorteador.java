@@ -1,4 +1,4 @@
-public interface Sorteador {
+public interface Sorteador<T> {
 
-    int sortear();
+    T sortear();
 }
