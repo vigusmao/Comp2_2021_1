@@ -1,4 +1,4 @@
-public class JogoMalucoComSorteadores<S1 extends Sorteador, S2 extends Sorteador>
+public class JogoMalucoComSorteadores<S1 extends Sorteador<Integer>, S2 extends Sorteador<Integer>>
         extends JogoDeDoisJogadores {
 
     /**
