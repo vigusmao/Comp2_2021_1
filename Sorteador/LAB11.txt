@@ -113,7 +113,7 @@ Exercícios:
    (pode inclusive ser um DadoComum).
    No método sortear(),
    joga um dado 3 vezes, com resultados X, Y, Z.
-   retornando 1 se A==B==C
+   retornando 1 se X==Y==Z
    e 0 caso contrário.
 
 4) Repetir a simulação do exercício 2 do LAB 10,

@@ -3,19 +3,64 @@ import java.util.Map;
 
 public class Principal {
 
-    private static final int CONT_REPETICOES_POR_SIMULACAO = 2_000_000;
+    private static final int CONT_REPETICOES_POR_SIMULACAO = 100_000;
 
     private static DadosDeGamao dadosDeGamao = new DadosDeGamao();
     private static DadosTriplos dadosTriplos = new DadosTriplos();
 
+    private static DadoGenerico<Integer> dadoGenerico = construirDadoGenerico();
+
+    private static SorteadorViaDoisParesConsecutivos sorteadorPares =
+            new SorteadorViaDoisParesConsecutivos(dadoGenerico);
+
+    private static SorteadorViaTrio sorteadorTrio =
+            new SorteadorViaTrio(dadoGenerico);
+
+//    PRIMEIRA SIMULAÇÃO: usando dado comum, honesto
+//
+//    private static DadoGenerico<Integer> construirDadoGenerico() {
+//        return new DadoComum();
+//    }
+
+
+//    SEGUNDA SIMULAÇÃO: usando um dado viciado
+//
+//    private static DadoGenerico<Integer> construirDadoGenerico() {
+//
+//        Map<Integer, Integer> mapinha = new HashMap<>();
+//        mapinha.put(1, 2);
+//        mapinha.put(2, 2);
+//        mapinha.put(3, 2);
+//        mapinha.put(4, 2);
+//        mapinha.put(5, 2);
+//        mapinha.put(6, 90);  // dado viciado, quase sempre cai "6"
+//
+//        return new DadoGenerico<>(mapinha);
+//    }
+
+
+//    TERCEIRA SIMULAÇÃO: usando uma moeda
+//
+    private static DadoGenerico<Integer> construirDadoGenerico() {
+
+        Map<Integer, Integer> mapinha = new HashMap<>();
+        mapinha.put(1, 15);
+        mapinha.put(2, 85);   // moeda desonesta
+
+        return new DadoGenerico<>(mapinha);
+    }
 
     private static void obterPercentuaisEmpiricos(int numeroDeRodadasPorPartida) {
 
-        JogoMalucoComSorteadores<DadosDeGamao, DadosTriplos> jogoMaluco;
+        JogoMalucoComSorteadores<
+                SorteadorViaDoisParesConsecutivos,
+                SorteadorViaTrio> jogoMaluco;
 
         jogoMaluco = new JogoMalucoComSorteadores<>(
-                "JogadorDosDadosDeGamao", "JogadorDosDadosTriplos",
-                numeroDeRodadasPorPartida, dadosDeGamao, dadosTriplos);
+                "JogadorDosParesConsecutivos", "JogadorDosTrios",
+                numeroDeRodadasPorPartida,
+                sorteadorPares,
+                sorteadorTrio);
 
         for (int i = 0; i < CONT_REPETICOES_POR_SIMULACAO; i++) {
             jogoMaluco.jogar();
@@ -23,30 +68,19 @@ public class Principal {
 
         System.out.println(String.format("\n\n" +
                 "      Para partidas com %d rodada(s):\n" +
-                "      Vitórias do Jogador 1: %f%%\n" +
-                "      Vitórias do Jogador 2: %f%%\n" +
+                "      Vitórias do %s: %f%%\n" +
+                "      Vitórias do %s: %f%%\n" +
                 "      Empates: %f%%",
                 numeroDeRodadasPorPartida,
+                jogoMaluco.getNomeJogador1(),
                 jogoMaluco.getPercentualVitoriasJogador1(),
+                jogoMaluco.getNomeJogador2(),
                 jogoMaluco.getPercentualVitoriasJogador2(),
                 jogoMaluco.getPercentualEmpates()));
     }
 
     public static void main(String[] args) {
 
-//        Map<String, Integer> frequenciaByDiaDaSemana = new HashMap<>();
-//        frequenciaByDiaDaSemana.put("segunda", 1);
-//        frequenciaByDiaDaSemana.put("terça", 4);
-//        frequenciaByDiaDaSemana.put("quarta", 6);
-//        frequenciaByDiaDaSemana.put("quinta", 1);
-//        frequenciaByDiaDaSemana.put("sexta", 1);
-//        frequenciaByDiaDaSemana.put("sábado", 10);
-//        frequenciaByDiaDaSemana.put("domingo", 10);
-//
-//        DadoGenerico<String> sorteadorDeDiasDaSemana = new DadoGenerico<>(frequenciaByDiaDaSemana);
-//
-//        String diaSorteado = sorteadorDeDiasDaSemana.sortear();
-//
         for (int numeroDeRodadas = 1; numeroDeRodadas <= 1000000; numeroDeRodadas++) {
             obterPercentuaisEmpiricos(numeroDeRodadas);
         }
