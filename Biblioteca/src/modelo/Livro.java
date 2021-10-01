@@ -30,17 +30,4 @@ public class Livro {
     public int getAnoDePublicacao() {
         return this.anodePublicacao;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Livro livro = (Livro) o;
-        return anodePublicacao == livro.anodePublicacao && Objects.equals(titulo, livro.titulo) && Objects.equals(autor, livro.autor);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(titulo, autor, anodePublicacao);
-    }
 }

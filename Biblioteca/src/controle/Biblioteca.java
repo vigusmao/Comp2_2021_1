@@ -11,14 +11,6 @@ import java.util.Map;
 
 public class Biblioteca {
 
-    private Map<Long, Usuario> usuariobyCpf;
-
-    private Map<Livro, Integer> quantidadebyLivro;
-
-    private Map<Usuario, Integer> objetosemprestadosbyUsuario;
-
-
-
     /** quantidade mínima de unidades de um livro que precisam existir nas estantes da biblioteca para
      que o livro possa ser emprestado */
     public static final int MIN_COPIAS_PARA_PODER_EMPRESTAR = 2;
@@ -27,9 +19,6 @@ public class Biblioteca {
     public static final int MAX_LIVROS_DEVIDOS = 3;
 
     public Biblioteca() {
-        usuariobyCpf = new HashMap<>();
-        quantidadebyLivro = new HashMap<>();
-        objetosemprestadosbyUsuario = new HashMap<>();
     }
 
     /**
@@ -38,13 +27,6 @@ public class Biblioteca {
      * @param usuario o usuário a ser inserido/atualizado.
      */
     public void cadastrarUsuario(Usuario usuario) {
-        if(usuariobyCpf.containsKey(usuario.getCpf())){
-            usuariobyCpf.remove(usuario.getCpf());
-            usuariobyCpf.put(usuario.getCpf(), usuario);
-        }else{
-            usuariobyCpf.put(usuario.getCpf(), usuario);
-            objetosemprestadosbyUsuario.put(usuario, 0);
-        }
     }
 
     /**
@@ -54,13 +36,14 @@ public class Biblioteca {
      * @return o usuário, caso exista; ou null, caso não exista nenhum usuário cadastrado com aquele CPF
      */
     public Usuario getUsuario(long cpf) {
-        return usuariobyCpf.get(cpf);
+        return null;  // ToDo IMPLEMENT ME!!
     }
+
     /**
      * @return o número total de usuários cadastrados na biblioteca
      */
     public int getTotalDeUsuariosCadastrados() {
-        return usuariobyCpf.size();
+        return 0;  // ToDo IMPLEMENT ME!!
     }
 
     /**
@@ -70,12 +53,7 @@ public class Biblioteca {
      * @param quantidade o número de cópias do livro sendo adquiridas
      */
     public void incluirLivroNoAcervo(Livro livro, int quantidade) {
-        if(!quantidadebyLivro.containsKey(livro)){
-            quantidadebyLivro.put(livro, quantidade);
-        }else{
-            quantidadebyLivro.replace(livro,quantidadebyLivro.get(livro)+quantidade);
-        }
-        return;
+        // ToDo IMPLEMENT ME!!
     }
 
     /**
@@ -96,20 +74,7 @@ public class Biblioteca {
      */
     public boolean emprestarLivro(Livro livro, Usuario usuario)
             throws UsuarioNaoCadastradoException, LimiteEmprestimosExcedidoException {
-        if(!usuariobyCpf.containsKey(usuario.getCpf())){
-            throw new UsuarioNaoCadastradoException();
-        }
-        if(objetosemprestadosbyUsuario.get(usuario) >= MAX_LIVROS_DEVIDOS){
-            throw new LimiteEmprestimosExcedidoException();
-        }
-        if(quantidadebyLivro.get(livro) >= MIN_COPIAS_PARA_PODER_EMPRESTAR){
-            quantidadebyLivro.replace(livro,quantidadebyLivro.get(livro)-1);
-            objetosemprestadosbyUsuario.replace(usuario, objetosemprestadosbyUsuario.get(usuario)+1);
-            usuario.emprestarLivro(livro);
-            return  true;
-        }else{
-            return false;
-        }
+        return false;  // ToDo IMPLEMENT ME!!
     }
 
     /**
@@ -121,15 +86,7 @@ public class Biblioteca {
      * @throws DevolucaoInvalidaException se o livro informado não se encontra emprestado para o usuário informado
      */
     public void receberDevolucaoLivro(Livro livro, Usuario usuario) throws DevolucaoInvalidaException {
-        if(!usuario.possuiObjeto(livro)){
-            throw  new DevolucaoInvalidaException();
-        }
-        else{
-            usuario.devolverLivro(livro);
-            objetosemprestadosbyUsuario.replace(usuario,objetosemprestadosbyUsuario.get(usuario)-1);
-            quantidadebyLivro.replace(livro,quantidadebyLivro.get(livro)+1);
-        }
-        return;
+        // ToDo IMPLEMENT ME!!
     }
 
     /**
@@ -140,11 +97,7 @@ public class Biblioteca {
      *         ou não seja nem mesmo um usuário cadastrado na biblioteca, retorna zero, não deve nada
      */
     public int getQuantidadeDeLivrosDevidos(Usuario usuario) {
-        if(objetosemprestadosbyUsuario.containsKey(usuario) && objetosemprestadosbyUsuario.get(usuario) > 0){
-            return objetosemprestadosbyUsuario.get(usuario);
-        }else{
-            return 0;
-        }
+        return 0;  // ToDo IMPLEMENT ME!!
     }
 
     /**
@@ -163,10 +116,6 @@ public class Biblioteca {
      * @return o número de cópias não-emprestadas daquele livro
      */
     public int getQuantidadeDeLivrosNaEstante(Livro livro) {
-        if(quantidadebyLivro.containsKey(livro)){
-            return quantidadebyLivro.get(livro);
-        }else{
-            return  0;
-        }
+        return 0;  // ToDo IMPLEMENT ME!!
     }
 }
