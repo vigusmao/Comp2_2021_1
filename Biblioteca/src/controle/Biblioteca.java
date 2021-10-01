@@ -64,6 +64,7 @@ public class Biblioteca {
      *
      * @return true, se o empréstimo foi bem-sucedido;
      *         false, se o livro não está disponível para empréstimo
+     *
      *         (IMPORTANTE: um livro é considerado disponível para empréstimo se há pelo menos
      *                      controle.Biblioteca.MIN_COPIAS_PARA_PODER_EMPRESTAR cópias daquele livro nas estantes da biblioteca;
      *                      isto é, as estantes da biblioteca jamais poderão ficar com menos do que

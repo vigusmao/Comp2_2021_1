@@ -8,7 +8,13 @@
    e fazendo com que a quantidade máxima de livros emprestados ao mesmo tempo
    para um usuário fosse função de sua categoria.
 
-3- Explique, no corpo do e-mail, e sem necessidade de escrever código, que tipo de alteração você faria se quisesse permitir que sua biblioteca emprestasse também jogos, revistas e DVDs.
-6- Explique, no corpo do e-mail, e sem necessidade de escrever código, que tipo de alteração você faria se quisesse permitir que certas instâncias de Biblioteca pudessem emprestar apenas livros, ou apenas jogos, ou apenas revistas, ou apenas DVDs.
+3- Explique, no corpo do e-mail, e sem necessidade de escrever código,
+   que tipo de alteração você faria se quisesse permitir que sua biblioteca
+   emprestasse também jogos, revistas e DVDs.
 
-Cada teste vale 0,5 pontos. Cada uma das questões descritas nos itens 4, 5 e 6 acima vale 1,0 ponto.
+4- Explique, no corpo do e-mail, e sem necessidade de escrever código,
+   que tipo de alteração você faria se quisesse permitir que certas instâncias
+   de Biblioteca pudessem emprestar apenas livros, ou apenas jogos,
+   ou apenas revistas, ou apenas DVDs.
+
+Cada teste vale 0,5 pontos. Cada uma das questões descritas nos itens 2, 3 e 4 acima vale 1,0 ponto.
