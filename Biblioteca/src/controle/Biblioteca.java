@@ -18,7 +18,17 @@ public class Biblioteca {
     /** quantidade máxima de livros da biblioteca que podem estar emprestados, a qualquer tempo, a um mesmo usuário */
     public static final int MAX_LIVROS_DEVIDOS = 3;
 
+    private Map<Long, Usuario> usuarioByCpf;
+
+    private Map<Livro, Integer> quantidadeDisponivelByLivro;
+
+    private int quantidadeTotalDeLivrosDisponiveisNasEstantes;
+
+
     public Biblioteca() {
+        this.usuarioByCpf = new HashMap<>();
+        this.quantidadeDisponivelByLivro = new HashMap<>();
+        this.quantidadeTotalDeLivrosDisponiveisNasEstantes = 0;
     }
 
     /**
@@ -27,6 +37,13 @@ public class Biblioteca {
      * @param usuario o usuário a ser inserido/atualizado.
      */
     public void cadastrarUsuario(Usuario usuario) {
+        Usuario usuarioPreExistente = this.usuarioByCpf.get(usuario.getCpf());
+        if (usuarioPreExistente != null) {
+            usuarioPreExistente.setNome(usuario.getNome());
+            usuarioPreExistente.setEndereco(usuario.getEndereco());
+        } else {
+            this.usuarioByCpf.put(usuario.getCpf(), usuario);
+        }
     }
 
     /**
@@ -36,14 +53,14 @@ public class Biblioteca {
      * @return o usuário, caso exista; ou null, caso não exista nenhum usuário cadastrado com aquele CPF
      */
     public Usuario getUsuario(long cpf) {
-        return null;  // ToDo IMPLEMENT ME!!
+        return this.usuarioByCpf.get(cpf);
     }
 
     /**
      * @return o número total de usuários cadastrados na biblioteca
      */
     public int getTotalDeUsuariosCadastrados() {
-        return 0;  // ToDo IMPLEMENT ME!!
+        return this.usuarioByCpf.size();
     }
 
     /**
@@ -53,7 +70,18 @@ public class Biblioteca {
      * @param quantidade o número de cópias do livro sendo adquiridas
      */
     public void incluirLivroNoAcervo(Livro livro, int quantidade) {
-        // ToDo IMPLEMENT ME!!
+        Integer quantidadePreExistente = this.quantidadeDisponivelByLivro.get(livro);
+        if (quantidadePreExistente != null) {
+            quantidade += quantidadePreExistente;
+        }
+        this.quantidadeDisponivelByLivro.put(livro, quantidade);
+
+//        this.quantidadeDisponivelByLivro.put(
+//                livro,
+//                this.quantidadeDisponivelByLivro.getOrDefault(livro, 0) + quantidade);
+//
+
+        this.quantidadeTotalDeLivrosDisponiveisNasEstantes += quantidade;
     }
 
     /**
@@ -75,7 +103,28 @@ public class Biblioteca {
      */
     public boolean emprestarLivro(Livro livro, Usuario usuario)
             throws UsuarioNaoCadastradoException, LimiteEmprestimosExcedidoException {
-        return false;  // ToDo IMPLEMENT ME!!
+
+        Usuario usuarioCadastrado = this.usuarioByCpf.get(usuario.getCpf());
+        if (usuarioCadastrado == null) {
+            throw new UsuarioNaoCadastradoException();
+        }
+
+        if (usuarioCadastrado.getTotalCopiasEmprestadas() >=
+                usuarioCadastrado.getNivel().getMaxCopiasDevidas()) {
+            throw new LimiteEmprestimosExcedidoException();
+        }
+
+        int copiasDisponiveis = getQuantidadeDeLivrosNaEstante(livro);
+        if (copiasDisponiveis < MIN_COPIAS_PARA_PODER_EMPRESTAR) {
+            return false;  // livro indisponível para empréstimo
+        }
+
+        // agora sim posso efetuar o empréstimo
+        this.quantidadeDisponivelByLivro.put(livro, copiasDisponiveis - 1);
+        this.quantidadeTotalDeLivrosDisponiveisNasEstantes--;
+        usuarioCadastrado.receberLivroEmprestado(livro);
+
+        return true;
     }
 
     /**
@@ -87,7 +136,20 @@ public class Biblioteca {
      * @throws DevolucaoInvalidaException se o livro informado não se encontra emprestado para o usuário informado
      */
     public void receberDevolucaoLivro(Livro livro, Usuario usuario) throws DevolucaoInvalidaException {
-        // ToDo IMPLEMENT ME!!
+        Usuario usuarioCadastrado = this.usuarioByCpf.get(usuario.getCpf());
+
+        int copiasComOUsuario = usuarioCadastrado == null ? 0 :
+                usuarioCadastrado.getCopiasEmprestadas(livro);
+
+        if (copiasComOUsuario == 0) {
+            throw new DevolucaoInvalidaException();
+        }
+
+        usuarioCadastrado.devolverLivro(livro);
+        this.quantidadeTotalDeLivrosDisponiveisNasEstantes++;
+        this.quantidadeDisponivelByLivro.put(
+                livro,
+                this.quantidadeDisponivelByLivro.getOrDefault(livro, 0) + 1);
     }
 
     /**
@@ -98,7 +160,7 @@ public class Biblioteca {
      *         ou não seja nem mesmo um usuário cadastrado na biblioteca, retorna zero, não deve nada
      */
     public int getQuantidadeDeLivrosDevidos(Usuario usuario) {
-        return 0;  // ToDo IMPLEMENT ME!!
+        return usuario.getTotalCopiasEmprestadas();
     }
 
     /**
@@ -106,7 +168,7 @@ public class Biblioteca {
      *         não-emprestadas de todos os livros do acervo da biblioteca).
      */
     public int getQuantidadeDeLivrosNaEstante() {
-        return 0;  // ToDo IMPLEMENT ME!!!
+        return this.quantidadeTotalDeLivrosDisponiveisNasEstantes;
     }
 
     /**
@@ -117,6 +179,6 @@ public class Biblioteca {
      * @return o número de cópias não-emprestadas daquele livro
      */
     public int getQuantidadeDeLivrosNaEstante(Livro livro) {
-        return 0;  // ToDo IMPLEMENT ME!!
+        return this.quantidadeDisponivelByLivro.getOrDefault(livro, 0);
     }
 }

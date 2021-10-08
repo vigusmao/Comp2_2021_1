@@ -33,9 +33,9 @@ public class BibliotecaTest {
         cpfUsuarioFantasma = 9876L;
         usuarioFantasma = new Usuario("Usuário Fantasma", cpfUsuarioFantasma);
 
-        livroRaro = new Livro("Algum modelo.Livro", "Algum autor", 1900);
+        livroRaro = new Livro("Algum Livro", "Algum autor", 1900);
         livroAbundante = new Livro("Outro livro", "Outro autor", 1980);
-        livroInexistente = new Livro("modelo.Livro Que Nunca Foi Adquirido", "Autor Desconhecido", 2000);
+        livroInexistente = new Livro("Livro Que Nunca Foi Adquirido", "Autor Desconhecido", 2000);
 
         biblioteca = new Biblioteca();
         biblioteca.cadastrarUsuario(usuario1);
@@ -45,7 +45,7 @@ public class BibliotecaTest {
 
     @Test
     public void testeAdquirirLivros() {
-        Livro novoLivro = new Livro("Um modelo.Livro Recém-Adquirido", "Algum autor", 2018);
+        Livro novoLivro = new Livro("Um Livro Recém-Adquirido", "Algum autor", 2018);
         biblioteca.incluirLivroNoAcervo(novoLivro, 10);
         assertEquals("A aquisição de um livro deve atualizar a quantidade daquele livro na estante",
                 10, biblioteca.getQuantidadeDeLivrosNaEstante(novoLivro));
@@ -140,7 +140,7 @@ public class BibliotecaTest {
             throws LimiteEmprestimosExcedidoException {
         try {
             biblioteca.emprestarLivro(livroAbundante, usuarioFantasma);
-            fail("A tentativa de empréstimo para usuário não cadastrado deve lançar uma excecao.UsuarioNaoCadastradoException");
+            fail("A tentativa de empréstimo para usuário não cadastrado deve lançar uma UsuarioNaoCadastradoException");
         } catch (UsuarioNaoCadastradoException e) {
             // ok, teste passou
         }
@@ -165,7 +165,7 @@ public class BibliotecaTest {
             biblioteca.emprestarLivro(livroAbundante, usuario1);
             fail("Um mesmo usuario nao pode pegar emprestado mais do que " +
                     Biblioteca.MAX_LIVROS_DEVIDOS +
-                    " livros --- uma excecao.LimiteEmprestimosExcedidoException deve ser lançada nesse caso");
+                    " livros --- uma LimiteEmprestimosExcedidoException deve ser lançada nesse caso");
         } catch (LimiteEmprestimosExcedidoException e) {
             // ok, teste passou
         }
