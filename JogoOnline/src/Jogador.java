@@ -32,7 +32,7 @@ public class Jogador {
         this.minhasPartidas.add(partida);
 
         switch (partida.getResultado()) {
-            case Partida.VITORIA_JOGADOR_1:
+            case VITORIA_JOGADOR_1:
                 if (partida.getJogador1().equals(this)) {
                     this.pontuacao += JogoOnline.PONTOS_VITORIA;
                 } else {
@@ -40,7 +40,7 @@ public class Jogador {
                 }
                 break;
 
-            case Partida.VITORIA_JOGADOR_2:
+            case VITORIA_JOGADOR_2:
                 if (partida.getJogador2().equals(this)) {
                     this.pontuacao += JogoOnline.PONTOS_VITORIA;
                 } else {
@@ -48,7 +48,7 @@ public class Jogador {
                 }
                 break;
 
-            case Partida.EMPATE:
+            case EMPATE:
                 this.pontuacao += JogoOnline.PONTOS_EMPATE;
         }
     }

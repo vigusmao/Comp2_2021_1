@@ -2,9 +2,9 @@ import java.util.*;
 
 public class JogoOnline {
 
-    public static final int PONTOS_VITORIA = 1;
-    public static final int PONTOS_EMPATE = 0;
-    public static final int PONTOS_DERROTA = -1;
+    static final int PONTOS_VITORIA = 1;
+    static final int PONTOS_EMPATE = 0;
+    static final int PONTOS_DERROTA = -1;
 
     private Random random;
 
@@ -140,7 +140,7 @@ public class JogoOnline {
         jogador1.setJogando(true);
         jogador2.setJogando(true);
 
-        novaPartida.setResultado(Partida.PARTIDA_EM_ANDAMENTO);
+        novaPartida.setResultado(Partida.Resultado.PARTIDA_EM_ANDAMENTO);
 
         return novaPartida;
     }
@@ -152,15 +152,14 @@ public class JogoOnline {
      * @param resultado O resultado da partida que será encerrada:
      *                  0 (empate), 1 (vitória do jogador 1) ou 2 (vitória do jogador 2)
      */
-    public void encerrarPartida(Partida partida, int resultado) {
-        if (partida.getResultado() != Partida.PARTIDA_EM_ANDAMENTO) {
+    public void encerrarPartida(Partida partida, Partida.Resultado resultado) {
+        if (partida.getResultado() != Partida.Resultado.PARTIDA_EM_ANDAMENTO) {
             // a partida não está em andamento, não posso atribuir resultado!
             throw new RuntimeException("Partida já encerrada!");
         }
 
-        if (resultado != Partida.EMPATE &&
-                resultado != Partida.VITORIA_JOGADOR_1 &&
-                resultado != Partida.VITORIA_JOGADOR_2) {
+        if (resultado == Partida.Resultado.PARTIDA_NAO_INICIADA ||
+                resultado == Partida.Resultado.PARTIDA_EM_ANDAMENTO) {
             throw new IllegalArgumentException("Resultado inválido");
             // a IllegalArgumentException é uma RuntimeException (herança)
         }

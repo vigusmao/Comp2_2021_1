@@ -3,7 +3,7 @@
 
 2) No main() da classe Principal, para cada iteração do laço que lá está,
    ou seja, para cada número fixo de rodadas por jogo,
-   chama o método jogar() um número grande de vezes (digamos, 1000 vezes),
+   chame o método jogar() um número grande de vezes (digamos, 1000 vezes),
    e após todas essas execuções do jogar(), imprima os percentuais de vitória
    de cada jogador (e de empate). Exemplo:
 

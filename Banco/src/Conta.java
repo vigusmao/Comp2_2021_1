@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 
 public class Conta {
@@ -71,6 +72,30 @@ public class Conta {
 
     public float getSaldoEmReais() {
         return this.saldoEmReais;
+    }
+
+    public void receberDepositoEmDinheiro(
+            Map<CedulaOuMoeda, Integer> quantidadeByCedulaOuMoeda) {
+         //       chave      ,  valor
+
+        float valorTotal = 0;
+
+//        for (CedulaOuMoeda cedulaOuMoeda : quantidadeByCedulaOuMoeda.keySet()) {
+//            int quantidade = quantidadeByCedulaOuMoeda.get(cedulaOuMoeda);
+
+        // iteração mais eficiente pelas chaves e valores    #ficaadica
+        for (Map.Entry<CedulaOuMoeda, Integer> parChaveValor : quantidadeByCedulaOuMoeda.entrySet()) {
+
+            CedulaOuMoeda cedulaOuMoeda = parChaveValor.getKey();
+            int quantidade = parChaveValor.getValue();
+
+
+            float valorMonetario = cedulaOuMoeda.getValorMonetario();
+            valorTotal += quantidade * valorMonetario;
+
+        }
+
+        receberDepositoEmDinheiro(valorTotal);
     }
 
     public void receberDepositoEmDinheiro(float valor) {

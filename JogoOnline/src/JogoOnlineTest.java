@@ -79,7 +79,7 @@ public class JogoOnlineTest {
 
         assertEquals(jogadorJoao, partida.getJogador1());
         assertEquals(jogadoraMaria, partida.getJogador2());
-        assertEquals(Partida.PARTIDA_EM_ANDAMENTO,
+        assertEquals(Partida.Resultado.PARTIDA_EM_ANDAMENTO,
                 partida.getResultado());
         assertTrue(jogadorJoao.isJogando());
         assertTrue(jogadoraMaria.isJogando());
@@ -117,7 +117,7 @@ public class JogoOnlineTest {
         jogo.fazerLogin("jose", "999");
 
         Partida partida1 = jogo.iniciarPartida(jogadorJoao, jogadoraMaria);
-        jogo.encerrarPartida(partida1, 2);
+        jogo.encerrarPartida(partida1, Partida.Resultado.VITORIA_JOGADOR_2);
 
         List<Jogador> ranking = jogo.obterRanking();
 

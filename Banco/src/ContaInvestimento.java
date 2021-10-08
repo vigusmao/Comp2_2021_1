@@ -1,11 +1,12 @@
 public class ContaInvestimento extends Conta {
 
-    private String tipoInvestimento;
+    private TipoInvestimento tipo;
 
     private float taxaJuros;
 
     public ContaInvestimento(int numeroDaConta, Correntista correntista,
-                             String tipoInvestimento, float taxaJuros) {
+                             TipoInvestimento tipoInvestimento, float taxaJuros,
+                             float aporteInicial) {
 
         super(numeroDaConta, correntista, 0);
 
@@ -14,12 +15,32 @@ public class ContaInvestimento extends Conta {
             throw new RuntimeException("Correntista sem conta corrente!");
         }
 
-        this.tipoInvestimento = tipoInvestimento;
+        if (aporteInicial < tipoInvestimento.getSaldoMinimoParaAbertura()) {
+            throw new RuntimeException("Aporte inicial insuficiente!");
+        }
+
+        setTipoInvestimento(tipoInvestimento);
         this.taxaJuros = taxaJuros;
+    }
+
+    public void setTipoInvestimento(TipoInvestimento tipo) {
+        this.tipo = tipo;
     }
 
     void aplicarJuros() {
         this.saldoEmReais *= (1 + taxaJuros);
+
+        switch (this.tipo) {
+            case TESOURO_DIRETO:
+                // dsfksdfksdfkl
+                break;
+            case CDB:
+                //dsflksdflksdjf
+                break;
+            // etc. etc.
+            default:
+                //dklsjdkflslkds
+        }
     }
 
     public void resgatarTotal() {
@@ -39,6 +60,10 @@ public class ContaInvestimento extends Conta {
                 String.format("Recebido resgate total da conta %d no valor de R$.2f",
                         getNumero(), this.saldoEmReais));
 
+    }
+
+    public TipoInvestimento getTipo() {
+        return tipo;
     }
 
     @Override

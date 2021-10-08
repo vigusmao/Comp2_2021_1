@@ -2,7 +2,7 @@
         int sortear(),
    que retorna um inteiro escolhido a partir de um experimento aleatório qualquer.
 
-2) Crie uma classe Dado, que implementa a interface Sorteador. O dado tem como característica sortear
+2) Crie uma classe DadoComum, que implementa a interface Sorteador. O dado tem como característica sortear
    um inteiro entre 1 e 6, cada qual com a mesma probabilidade.
 
    (Dica: o método nextInt(int bound) do objeto Random sorteia um inteiro com probabilidade uniforme
@@ -17,7 +17,7 @@
              resultados dos dados: 5 e 2; valor retornado: 5 + 2 = 7
              resultados dos dados: 5 e 5; valor retornado: 2 * (5 + 5) = 4 * 5 = 20
 
-   (Obs: não reescreva uma maneira de sortear um número entre 1 e 6. Use um objeto Dado para isso.)
+   (Obs: não reescreva uma maneira de sortear um número entre 1 e 6. Use um objeto DadoComum para isso.)
 
 4) Crie uma classe DadosTriplos, que também implementa a mesma interface. Objetos dessa classe
    sorteiam o inteiro que será retornado jogando três vezes um dado e somando os três pontos obtidos.

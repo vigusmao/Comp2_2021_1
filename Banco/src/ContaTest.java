@@ -1,5 +1,9 @@
+import com.oracle.tools.packager.mac.MacAppBundler;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -75,6 +79,22 @@ public class ContaTest {
         assertEquals("Depósitos ignorados não devem sequer constar do extrato",
                 extratoAntes, extratoDepois);
 
+    }
+
+    @Test
+    public void testarDepositoEmCashComCedulasEMoedasInformadas() {
+        Map<CedulaOuMoeda, Integer> quantidadeByCedulaOuMoeda = new HashMap<>();
+
+        quantidadeByCedulaOuMoeda.put(CedulaOuMoeda.MOEDA_DE_DEZ_CENTAVOS, 3);
+        quantidadeByCedulaOuMoeda.put(CedulaOuMoeda.CEDULA_DE_CINQUENTA_REAIS, 2);
+        quantidadeByCedulaOuMoeda.put(CedulaOuMoeda.CEDULA_DE_DEZ_REAIS, 1);
+//        quantidadeByCedulaOuMoeda.put(CedulaOuMoeda.CEDULA_DE_TRES_REAIS, 1);  // precisaríamos ignorar
+
+        contaDoJoao.receberDepositoEmDinheiro(quantidadeByCedulaOuMoeda);
+        assertEquals("O saldo da conta deve ser atualizado após receber um depósito",
+                saldoInicial + 110.30f,
+                contaDoJoao.getSaldoEmReais(),
+                FLOAT_DELTA);
     }
 
     @Test
@@ -212,6 +232,13 @@ public class ContaTest {
 
         assertFalse("Contas encerradas não devem constar da lista de contas " +
                 "gerenciadas por gerente algum", gerenteDeContaCarlos.ehGerenteDaConta(contaDoJoao));
+    }
+
+    @Test
+    public void testarContaInvestimento() {
+        ContaInvestimento conta = new ContaInvestimento(
+                12345, joao, TipoInvestimento.FUNDOS_IMOBILIARIOS, 0.06f, 2000);
+        System.out.println(conta.getTipo());
     }
 
 
