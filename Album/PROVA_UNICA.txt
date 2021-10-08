@@ -1,0 +1,13 @@
+Turma, a prova consiste de 10 unit tests, cada um valendo 1 ponto. Apenas isso. ;-)
+
+Vale mexer em qualquer coisa que vocês queiram, menos na classe de teste.
+
+Me mandem por e-mail, como de costume, até as 10h15,
+e apenas a(s) classe(s) que vocês mexerem
+(e, de preferência, sem compactação, pois poupa cliques do meu lado).
+Não mande classe que você não tiver alterado!
+
+Hoje, a produção deve ser 100% individual, ok?
+
+Abraços, e boa prova!
+
